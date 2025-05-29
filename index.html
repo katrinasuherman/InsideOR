@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surgical Outcome Explorer</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="main.js"></script>
+</head>
+<body>
+  <section class="hero-section">
+    <div class="hero-image">
+      <img src="gif2.gif" alt="Operating room illustration" />
+    </div>
+    <div class="hero-text">
+      <h1>
+        Inside the <span class="highlight">Operating Room</span><br />
+        <span class="subhead">What Affects Surgery Time and Recovery?</span>
+      </h1>
+      <p class="lead">
+        Explore 6,388 real-world surgeries from the VitalDB dataset to uncover
+        how age, BMI, approach, and diagnosis influence surgical outcomes.
+      </p>
+      <div class="hero-buttons">
+        <a href="#chart" class="btn primary">Start Exploring</a>
+        <a href="https://vitaldb.net/dataset/" class="btn outline" target="_blank" rel="noopener noreferrer">Data</a>
+      </div>
+    </div>
+  </section>
+  
+    <section class="intro-box">
+    <p>
+      What happens inside the operating room? How long will surgery take? What influences recovery afterward? These are questions every patient wonders before going under the knife.
+    </p>
+    <p>
+      With detailed data from over <strong>6,388</strong> real-world surgeries in the <a href="https://vitaldb.net/dataset/" target="_blank" rel="noopener noreferrer">VitalDB dataset</a>, this interactive explorer invites you to investigate those questions firsthand.
+    </p>
+    <p>
+      Select from 20 anonymized surgical cases, step into the OR, track vital signs minute by minute, and follow each patient into recovery.
+    </p>
+    <p>
+      Analyze how variables like <strong>age</strong>, <strong>BMI</strong>, <strong>sex</strong>,
+      <strong>operation type</strong>, and <strong>approach</strong> impact surgery time and post-operative outcomes.
+    </p>
+  </section>
+
+
+
+  <div class="scrollytelling-container">
+
+    <!-- 📝 Left panel: text -->
+    <div class="story-panel">
+      <h1>Surgical Outcome Explorer</h1>
+      <p>Explore how surgical outcomes vary by patient and procedural factors.</p>
+      <p>Use the filters on the right to explore how surgery time and ICU stays relate to characteristics like sex, BMI, approach, or emergency status.</p>
+      <p>Each patient journey tells a different story. But across thousands of surgeries, patterns emerge.</p>
+      <p>Scroll down to uncover these trends and compare different operation types, departments, and more.</p>
+      <p>Can you spot the differences between emergency and elective procedures?</p>
+      <p>How does sex or BMI change post-op outcomes?</p>
+      <p>Play with the filters and find out.</p>
+
+      <h2>However: Empower with Analysis and Interpretation</h2>
+      <p>
+        By analyzing trends across thousands of surgical cases, we begin to see the bigger picture.
+        Our dashboard enables you to filter and compare outcomes based on surgical approach, BMI, age, sex, department, and more.
+      </p>
+      <p>
+        You can uncover which factors most impact surgery time, blood loss, and recovery duration.
+        And in our final visualization, explore hemodynamic time-series to see how heart rate, blood pressure, and oxygen levels evolve during the operation.
+      </p>
+      <p>
+        With data, we move beyond anecdotes — toward insights that can improve care and save lives.
+      </p>
+
+    </div>
+    
+
+    <!-- 📊 Right panel: filters + chart -->
+    <div class="vis-panel">
+
+      <section id="controls" style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-end; margin-bottom: 2rem;">
+
+
+        <div>
+          <span style="font-weight: 600;">X-axis Type:</span><br />
+          <label><input type="radio" name="xType" value="quant" checked> Quantitative</label>
+          <label><input type="radio" name="xType" value="categorical"> Categorical</label>
+        </div>
+        
+        <div id="quantSelectWrapper">
+          <label for="xQuantSelect">X-axis (Quantitative):</label>
+          <select id="xQuantSelect">
+            <option value="age">Age</option>
+            <option value="height">Height</option>
+            <option value="weight">Weight</option>
+            <option value="bmi">BMI</option>
+            <option value="asa">ASA Score</option>
+          </select>
+        </div>
+
+        <div id="catSelectWrapper" style="display:none;">
+          <label for="xCatSelect">X-axis (Categorical):</label>
+          <select id="xCatSelect">
+            <option value="department">Department</option>
+            <option value="optype">Operation Type</option>
+            <option value="opname">Operation Name</option>
+            <option value="dx">Diagnosis</option>
+            <option value="approach">Approach</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="ySelect">Y-axis:</label>
+          <select id="ySelect">
+            <option value="surgery_time">Surgery Time</option>
+            <option value="icu_days">ICU Days</option>
+          </select>
+        </div>
+      </section>
+
+      <div class="filter-card">
+        <div class="sex-toggle">
+          <span>Sex:</span>
+          <label class="icon-toggle">
+            <input type="checkbox" id="showMale" class="male" checked />
+            <span class="icon">♂️</span>
+          </label>
+          <label class="icon-toggle">
+            <input type="checkbox" id="showFemale" class="female" checked />
+            <span class="icon">♀️</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="toggle-container">
+        <label class="switch">
+          <input type="checkbox" id="emergencyToggle">
+          <span class="slider"></span>
+        </label>
+        <label for="emergencyToggle" style="margin-left: 0.5rem;">Show only emergency operations</label>
+      </div>
+
+      <section id="stats" style="margin-bottom: 1rem;">
+        <strong id="summary">No data loaded.</strong>
+      </section>
+
+      <svg id="chart" width="900" height="500"></svg>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const radios = document.querySelectorAll('input[name="xType"]');
+      const quantWrapper = document.getElementById("quantSelectWrapper");
+      const catWrapper = document.getElementById("catSelectWrapper");
+
+      radios.forEach(radio => {
+        radio.addEventListener("change", () => {
+          if (radio.value === "quant") {
+            quantWrapper.style.display = "block";
+            catWrapper.style.display = "none";
+          } else {
+            quantWrapper.style.display = "none";
+            catWrapper.style.display = "block";
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
