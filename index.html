@@ -8,6 +8,7 @@
   <script type="module" src="main.js"></script>
 </head>
 <body>
+  <!-- Hero section -->
   <section class="hero-section">
     <div class="hero-image">
       <img src="gif2.gif" alt="Operating room illustration" />
@@ -27,8 +28,9 @@
       </div>
     </div>
   </section>
-  
-    <section class="intro-box">
+
+  <!-- Introduction -->
+  <section class="intro-box">
     <p>
       What happens inside the operating room? How long will surgery take? What influences recovery afterward? These are questions every patient wonders before going under the knife.
     </p>
@@ -44,11 +46,9 @@
     </p>
   </section>
 
-
-
+  <!-- Scrollytelling container -->
   <div class="scrollytelling-container">
-
-    <!-- 📝 Left panel: text -->
+    <!-- Text column -->
     <div class="story-panel">
       <h1>Surgical Outcome Explorer</h1>
       <p>Explore how surgical outcomes vary by patient and procedural factors.</p>
@@ -71,41 +71,34 @@
       <p>
         With data, we move beyond anecdotes — toward insights that can improve care and save lives.
       </p>
-
     </div>
-    
 
-    <!-- 📊 Right panel: filters + chart -->
+    <!-- Chart & filters -->
     <div class="vis-panel">
-
       <section id="controls" style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-end; margin-bottom: 2rem;">
-
+        <div class="optype-filter">
+          <label class="optype-pill"><input type="radio" name="optype" value="All" checked /> All</label>
+          <label class="optype-pill"><input type="radio" name="optype" value="Colorectal" /> Colorectal</label>
+          <label class="optype-pill"><input type="radio" name="optype" value="Stomach" /> Stomach</label>
+          <label class="optype-pill"><input type="radio" name="optype" value="Biliary/Pancreas" /> Biliary/Pancreas</label>
+          <label class="optype-pill"><input type="radio" name="optype" value="Vascular" /> Vascular</label>
+          <label class="optype-pill"><input type="radio" name="optype" value="Major resection" /> Major resection</label>
+          <label class="optype-pill"><input type="radio" name="optype" value="Breast" /> Breast</label>
+          <label class="optype-pill"><input type="radio" name="optype" value="Minor resection" /> Minor resection</label>
+          <label class="optype-pill"><input type="radio" name="optype" value="Transplantation" /> Transplantation</label>
+          <label class="optype-pill"><input type="radio" name="optype" value="Hepatic" /> Hepatic</label>
+          <label class="optype-pill"><input type="radio" name="optype" value="Thyroid" /> Thyroid</label>
+          <label class="optype-pill"><input type="radio" name="optype" value="Others" /> Others</label>
+        </div>
 
         <div>
-          <span style="font-weight: 600;">X-axis Type:</span><br />
-          <label><input type="radio" name="xType" value="quant" checked> Quantitative</label>
-          <label><input type="radio" name="xType" value="categorical"> Categorical</label>
-        </div>
-        
-        <div id="quantSelectWrapper">
-          <label for="xQuantSelect">X-axis (Quantitative):</label>
+          <label for="xQuantSelect">X-axis:</label>
           <select id="xQuantSelect">
             <option value="age">Age</option>
             <option value="height">Height</option>
             <option value="weight">Weight</option>
             <option value="bmi">BMI</option>
             <option value="asa">ASA Score</option>
-          </select>
-        </div>
-
-        <div id="catSelectWrapper" style="display:none;">
-          <label for="xCatSelect">X-axis (Categorical):</label>
-          <select id="xCatSelect">
-            <option value="department">Department</option>
-            <option value="optype">Operation Type</option>
-            <option value="opname">Operation Name</option>
-            <option value="dx">Diagnosis</option>
-            <option value="approach">Approach</option>
           </select>
         </div>
 
@@ -147,25 +140,5 @@
       <svg id="chart" width="900" height="500"></svg>
     </div>
   </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const radios = document.querySelectorAll('input[name="xType"]');
-      const quantWrapper = document.getElementById("quantSelectWrapper");
-      const catWrapper = document.getElementById("catSelectWrapper");
-
-      radios.forEach(radio => {
-        radio.addEventListener("change", () => {
-          if (radio.value === "quant") {
-            quantWrapper.style.display = "block";
-            catWrapper.style.display = "none";
-          } else {
-            quantWrapper.style.display = "none";
-            catWrapper.style.display = "block";
-          }
-        });
-      });
-    });
-  </script>
 </body>
 </html>
