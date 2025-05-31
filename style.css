@@ -283,6 +283,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 2rem;
   }
   
   .hero-image img {
@@ -302,6 +303,19 @@ body {
     color: #333;
     text-align: center;  
   }
+
+  /* .intro-container {
+    width: 100%;
+    padding: 3rem 4rem;
+    background: #fff;
+    box-sizing: border-box;
+  }
+  
+  .intro-box p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: none;
+  } */
   
   .optype-filter {
     display: flex;
