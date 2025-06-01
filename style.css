@@ -1,8 +1,8 @@
 /* Base Styles */
 body {
     font-family: 'Segoe UI', sans-serif;
-    margin: 2rem;
-    background-color: #f9f9f9;
+    margin: 6rem;
+    /* background-color: #f9f9f9; */
     color: #333;
     line-height: 1.6;
   }
@@ -170,43 +170,10 @@ body {
   }
 
 
-  body {
-    margin: 0;
-    font-family: system-ui, sans-serif;
-    overflow-y: auto;      /* Enable vertical scroll */
-    height: auto;          /* Allow body to grow naturally */
-  }
-  
-  
-  .scrollytelling-container {
-    display: flex;
-    height: 100vh; /* Take full screen height */
-  }
-  
-  .story-panel {
-    flex: 1;
-    padding: 2rem;
-    overflow-y: scroll;
-    height: 100vh;
-    border-right: 1px solid #ccc;
-    background-color: #fafafa;
-  }
-  
-  .story-panel p {
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-  }
-  
-  .vis-panel {
-    flex: 2;
-    padding: 2rem;
-    overflow-y: auto;
-    height: 100vh;
-  }
-  
+
   .hero-section {
+    max-height: 500px;
     display: flex;
-    
     justify-content: space-between;
     align-items: center;
     padding: 3rem 2rem;
@@ -217,24 +184,26 @@ body {
   .hero-text {
     flex: 1;
     min-width: 280px;
-    max-width: 600px;
+    max-width: 800px;
+    margin-bottom: 0;
   }
+
   
   .hero-text h1 {
-    font-size: 2.5rem;
+    font-size: 5.5rem;
     font-weight: 700;
     line-height: 1.2;
   }
   
   .hero-text .highlight {
-    color: #3b82f6; /* Tailwind's blue-500 or adjust to match your brand */
+    color: #3b82f6; 
   }
   
   .hero-text .subhead {
-    font-weight: 500;
-    font-size: 1.4rem;
+    font-weight: 700;
+    font-size: 1.7rem;
     display: block;
-    margin-top: 0.25rem;
+    margin-top: 0.65rem;
   }
   
   .hero-text .lead {
@@ -247,6 +216,7 @@ body {
   .hero-buttons {
     display: flex;
     gap: 1rem;
+    margin-bottom: 0;
   }
   
   .btn {
@@ -292,31 +262,6 @@ body {
     border-radius: 16px;
   }
   
-  .intro-box {
-    max-width: 500px;
-    margin: 2rem auto;     
-    padding: 2rem;
-    background-color: #f9f9fb;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #333;
-    text-align: center;  
-  }
-
-  /* .intro-container {
-    width: 100%;
-    padding: 3rem 4rem;
-    background: #fff;
-    box-sizing: border-box;
-  }
-  
-  .intro-box p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    max-width: none;
-  } */
-  
   .optype-filter {
     display: flex;
     flex-wrap: wrap;
@@ -346,6 +291,115 @@ body {
     border-color: #3b82f6;
     font-weight: 500;
   }
+  
+  .step {
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  .step.in-view {
+    opacity: 1;
+  }
+  
+  
+  .scroll-container {
+    overflow-y: auto;
+    height: auto; /* Let it grow naturally */
+  }
+  
+  .scroll-section {
+    scroll-snap-align: start;
+    height: 100vh;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .intro-box {
+    padding: 3rem 3rem;
+    background: #fff;
+    text-align: center;
+  }
+  
+  .intro-box {
+    height: 100vh;
+    display: flex;
+    justify-content: center;     /* center horizontally */
+    align-items: center;         /* center vertically */
+    text-align: center;          /* center text inside */
+    flex-direction: column;
+    padding: 2rem;
+  }
+  
+  
+  .intro-box .final {
+    font-size: 1.5rem;
+    font-weight: 600;
+    max-width: 800px;
+  }
+  
+  
+  .reveal {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    transition: opacity 1s ease, transform 1s ease;
+    opacity: 1;
+  }
+  
+  .hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    text-align: center;
+  }
+  
+  .highlight-blue {
+    color: #3b82f6; /* Tailwind's blue-500 */
+    font-weight: bold;
+  }
+  
+  .highlight-red {
+    color: #e63946; /* A bold, eye-catching red */
+    font-weight: bold;
+  }
+
+  
+  .scatter-section {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .scatter-text {
+    flex: 0 0 35%; /* fixed width column */
+    padding: 2rem;
+    overflow-y: scroll;
+    height: 100vh;
+    font-size: 1.1rem;        /* Make text larger */
+    line-height: 1.8;         /* Improve readability */
+    font-weight: 500;         /* Slightly bolder */
+    color: #222;
+    background-color: #fafafa;
+  }
+  
+  
+  .scatter-fixed {
+    flex: 1.5;
+    position: relative;
+  }
+  
+  .vis-panel {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    padding: 2rem;
+    box-sizing: border-box;
+    background: white;
+  }
+  
   
   
   

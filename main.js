@@ -1,5 +1,7 @@
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
 
+let data = [];
+
 async function loadData() {
   const raw = await d3.csv('data.csv', d => {
     d.age = +d.age;
@@ -15,11 +17,63 @@ async function loadData() {
   return raw.filter(d => !isNaN(d.surgery_time));
 }
 
-const data = await loadData();
-updateChart();
+document.addEventListener("DOMContentLoaded", async () => {
+  // Load data and chart
+  data = await loadData();       
+  updateChart();            
 
-d3.selectAll('#controls select, #emergencyToggle, #showMale, #showFemale, input[name="optype"]')
-  .on('change', updateChart);
+  d3.selectAll('#controls select, #emergencyToggle, #showMale, #showFemale, input[name="optype"]')
+    .on('change', updateChart);
+
+  // === Reveal intro lines one by one ===
+  const revealSteps = document.querySelectorAll(".intro-box .reveal");
+  let index = 0;
+
+  const revealStep = () => {
+    if (index < revealSteps.length) {
+      revealSteps[index].classList.add("visible");
+      index++;
+      setTimeout(revealStep, 1000);
+    }
+  };
+
+  const introObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && index === 0) {
+        revealStep();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  if (revealSteps.length > 0) {
+    introObserver.observe(document.querySelector(".intro-box"));
+  }
+
+  // === Hide line1 and show line2 after delay ===
+  const line1 = document.getElementById("line1");
+  const line2 = document.getElementById("line2");
+
+  if (line1 && line2) {
+    setTimeout(() => {
+      line1.classList.add("hidden");
+
+      setTimeout(() => {
+        line2.classList.remove("hidden");
+        line2.classList.add("visible");
+      }, 1000);
+    }, 2300);
+  }
+
+  // === Generic step observer for other sections ===
+  const steps = document.querySelectorAll('.step');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      entry.target.classList.toggle('in-view', entry.isIntersecting);
+    });
+  }, { threshold: 0.5 });
+
+  steps.forEach(step => observer.observe(step));
+});
 
 function updateChart() {
   const yVar = d3.select('#ySelect').property('value');
