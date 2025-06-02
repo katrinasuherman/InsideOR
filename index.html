@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="hero-image">
-        <img src="gif2.gif" alt="Operating room illustration" />
+        <img src="images/gif2.gif" alt="Operating room illustration" />
       </div>
     </section>
 
@@ -44,6 +44,7 @@
       </div>
     </section>
 
+    <!-- CASE EXPLORER SECTION -->
     <section class="case-explorer scroll-section" id="case-explorer">
       <div id="choose-case">
         <h1>Choose a Case</h1>
@@ -73,12 +74,23 @@
         </div>
       </div>
     </section>
-    
 
     <!-- SCATTER PLOT EXPLORER SECTION -->
     <section class="scatter-section">
       <!-- LEFT COLUMN: SCROLLABLE TEXT -->
       <div class="scatter-text">
+
+        <section class="instructions">
+          <h3>🧭 How to Use the Surgical Outcome Explorer</h3>
+          <ol>
+            <li><strong>Choose an Operation Type:</strong> Select a type (e.g., Colorectal, Stomach) to filter surgeries.</li>
+            <li><strong>Filter by Sex:</strong> Use ♂️ / ♀️ toggles to include or exclude patients by sex.</li>
+            <li><strong>Select Axes:</strong> Use dropdowns to change the X-axis and Y-axis (e.g., BMI vs. ICU days).</li>
+            <li><strong>Toggle Emergency Cases:</strong> Use the switch to focus on emergency-only surgeries.</li>
+            <li><strong>Interpret the Results:</strong> View patterns in the chart and check summary stats below.</li>
+          </ol>
+        </section>
+
         <h2>Understanding the Scatter Plot</h2>
         <p>This scatter plot compares surgical outcomes across patient factors.</p>
         <p>Try selecting different operation types, emergency status, and sex to observe how trends shift.</p>
@@ -87,8 +99,12 @@
         <p>Keep scrolling to explore different filters and insights from the dataset.</p>
       </div>
 
+        <!-- INSTRUCTION PANEL BELOW TEXT -->
+
+
       <!-- RIGHT COLUMN: FIXED VISUALIZATION -->
       <div class="vis-panel">
+
         <section id="controls">
           <div class="optype-filter">
             <label class="optype-pill"><input type="radio" name="optype" value="All" checked /> All</label>
@@ -105,39 +121,39 @@
             <label class="optype-pill"><input type="radio" name="optype" value="Others" /> Others</label>
           </div>
 
-        <div class="filter-card">
-          <div class="sex-toggle">
-            <span>Sex:</span>
-            <label class="icon-toggle">
-              <input type="checkbox" id="showMale" class="male" checked />
-              <span class="icon">♂️</span>
-            </label>
-            <label class="icon-toggle">
-              <input type="checkbox" id="showFemale" class="female" checked />
-              <span class="icon">♀️</span>
-            </label>
+          <div class="filter-card">
+            <div class="sex-toggle">
+              <span>Sex:</span>
+              <label class="icon-toggle">
+                <input type="checkbox" id="showMale" class="male" checked />
+                <span class="icon">♂️</span>
+              </label>
+              <label class="icon-toggle">
+                <input type="checkbox" id="showFemale" class="female" checked />
+                <span class="icon">♀️</span>
+              </label>
+            </div>
           </div>
-        </div>
 
-        <div>
-          <label for="xQuantSelect">X-axis:</label>
-          <select id="xQuantSelect">
-            <option value="age">Age</option>
-            <option value="height">Height</option>
-            <option value="weight">Weight</option>
-            <option value="bmi">BMI</option>
-            <option value="asa">ASA Score</option>
-          </select>
-        </div>
+          <div>
+            <label for="xQuantSelect">X-axis:</label>
+            <select id="xQuantSelect">
+              <option value="age">Age</option>
+              <option value="height">Height</option>
+              <option value="weight">Weight</option>
+              <option value="bmi">BMI</option>
+              <option value="asa">ASA Score</option>
+            </select>
+          </div>
 
-        <div>
-          <label for="ySelect">Y-axis:</label>
-          <select id="ySelect">
-            <option value="surgery_time">Surgery Time</option>
-            <option value="icu_days">ICU Days</option>
-          </select>
-        </div>
-      </section>
+          <div>
+            <label for="ySelect">Y-axis:</label>
+            <select id="ySelect">
+              <option value="surgery_time">Surgery Time</option>
+              <option value="icu_days">ICU Days</option>
+            </select>
+          </div>
+        </section>
 
         <div class="toggle-container">
           <label class="switch">

@@ -1033,3 +1033,54 @@ body {
   display: none;
 }
   
+.control-label {
+  margin: 1rem 0 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+.axis-selectors {
+  margin-top: 1rem;
+}
+
+.instructions {
+  background-color: #f8f9fb;
+  border-left: 4px solid #4b8bec;
+  padding: 1.5rem 1.75rem;
+  border-radius: 0.75rem;
+  margin-top: 1rem;
+  font-family: system-ui, sans-serif;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.instructions h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.instructions .emoji {
+  font-size: 1.3rem;
+}
+
+.instructions ol {
+  padding-left: 1.25rem;
+  margin: 0;
+}
+
+.instructions ol li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.instructions .icon {
+  font-size: 1.1rem;
+  margin: 0 0.25rem;
+}
+
+.highlight-blue {
+  color: #3a7bd5;
+  font-weight: 600;
+}
