@@ -44,6 +44,37 @@
       </div>
     </section>
 
+    <section class="case-explorer scroll-section" id="case-explorer">
+      <div id="choose-case">
+        <h1>Choose a Case</h1>
+        <select id="caseDropdown">
+          <option disabled selected>Select a patient case</option>
+        </select>
+      </div>
+    
+      <div class="layout-wrapper">
+        <div id="case-and-body">
+          <div id="case-section">
+            <div id="ekg-monitor">
+              <img id="ekg-monitor" src="images/ekg.png" alt="ekg" />
+            </div>
+    
+            <div id="or-container">
+              <div class="zoom-area">
+                <img id="or-image" src="images/table-female.png" alt="Patient in OR" />
+              </div>
+              <div id="tooltip" class="tooltip"></div>
+            </div>
+    
+            <div id="surgeryInfo" class="info-card">
+              Surgical Information here.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
     <!-- SCATTER PLOT EXPLORER SECTION -->
     <section class="scatter-section">
       <!-- LEFT COLUMN: SCROLLABLE TEXT -->
@@ -74,26 +105,6 @@
             <label class="optype-pill"><input type="radio" name="optype" value="Others" /> Others</label>
           </div>
 
-          <div>
-            <label for="xQuantSelect">X-axis:</label>
-            <select id="xQuantSelect">
-              <option value="age">Age</option>
-              <option value="height">Height</option>
-              <option value="weight">Weight</option>
-              <option value="bmi">BMI</option>
-              <option value="asa">ASA Score</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="ySelect">Y-axis:</label>
-            <select id="ySelect">
-              <option value="surgery_time">Surgery Time</option>
-              <option value="icu_days">ICU Days</option>
-            </select>
-          </div>
-        </section>
-
         <div class="filter-card">
           <div class="sex-toggle">
             <span>Sex:</span>
@@ -107,6 +118,26 @@
             </label>
           </div>
         </div>
+
+        <div>
+          <label for="xQuantSelect">X-axis:</label>
+          <select id="xQuantSelect">
+            <option value="age">Age</option>
+            <option value="height">Height</option>
+            <option value="weight">Weight</option>
+            <option value="bmi">BMI</option>
+            <option value="asa">ASA Score</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="ySelect">Y-axis:</label>
+          <select id="ySelect">
+            <option value="surgery_time">Surgery Time</option>
+            <option value="icu_days">ICU Days</option>
+          </select>
+        </div>
+      </section>
 
         <div class="toggle-container">
           <label class="switch">
