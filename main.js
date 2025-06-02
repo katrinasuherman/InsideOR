@@ -25,46 +25,30 @@ document.addEventListener("DOMContentLoaded", async () => {
   d3.selectAll('#controls select, #emergencyToggle, #showMale, #showFemale, input[name="optype"]')
     .on('change', updateChart);
 
-  // === Reveal intro lines one by one ===
-  const revealSteps = document.querySelectorAll(".intro-box .reveal");
-  let index = 0;
-
-  const revealStep = () => {
-    if (index < revealSteps.length) {
-      revealSteps[index].classList.add("visible");
-      index++;
-      setTimeout(revealStep, 1000);
-    }
-  };
-
-  const introObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && index === 0) {
-        revealStep();
-      }
-    });
-  }, { threshold: 0.5 });
-
-  if (revealSteps.length > 0) {
-    introObserver.observe(document.querySelector(".intro-box"));
-  }
-
-  // === Hide line1 and show line2 after delay ===
+  // === Replace line1 with line2 when in view ===
   const line1 = document.getElementById("line1");
   const line2 = document.getElementById("line2");
 
   if (line1 && line2) {
-    setTimeout(() => {
-      line1.classList.add("hidden");
+    const lineObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            line1.classList.add("hidden");
+            setTimeout(() => {
+              line2.classList.remove("hidden");
+              line2.classList.add("visible");
+            }, 1000);
+          }, 1800);
+          lineObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
 
-      setTimeout(() => {
-        line2.classList.remove("hidden");
-        line2.classList.add("visible");
-      }, 1000);
-    }, 2300);
+    lineObserver.observe(line1.parentElement);
   }
 
-  // === Generic step observer for other sections ===
+  // === Generic observer for scroll animations ===
   const steps = document.querySelectorAll('.step');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
