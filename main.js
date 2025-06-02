@@ -81,15 +81,17 @@ function updateChart() {
   const selectedOptype = d3.select('input[name="optype"]:checked')?.property('value');
 
   const svg = d3.select('#chart');
-  svg.selectAll('*').remove();
-
   const width = +svg.attr('width');
   const height = +svg.attr('height');
   const margin = { top: 40, right: 40, bottom: 80, left: 60 };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
-  const chart = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+  const chart = svg.selectAll("g.chart-group")
+    .data([null])
+    .join("g")
+    .attr("class", "chart-group")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
 
   let filtered = data.filter(d => {
     const yVal = +d[yVar];
@@ -101,7 +103,7 @@ function updateChart() {
     return true;
   });
 
-  // Summary text display
+  // Summary text
   const avgY = d3.mean(filtered, d => d[yVar]);
   const summaryText = filtered.length && avgY !== undefined
     ? `${filtered.length} patients | Avg ${yVar.replace('_', ' ')}: ${avgY.toFixed(1)}`
@@ -116,36 +118,63 @@ function updateChart() {
     .domain([0, d3.max(filtered, d => +d[yVar])]).nice()
     .range([innerHeight, 0]);
 
-  chart.append('g')
-    .attr('transform', `translate(0,${innerHeight})`)
+  // Axis
+  chart.selectAll(".x-axis")
+    .data([null])
+    .join("g")
+    .attr("class", "x-axis")
+    .attr("transform", `translate(0,${innerHeight})`)
+    .transition().duration(1000)
     .call(d3.axisBottom(x));
 
-  chart.append('text')
-    .attr('x', innerWidth / 2)
-    .attr('y', innerHeight + 45)
-    .attr('text-anchor', 'middle')
-    .attr('font-size', '14px')
+  chart.selectAll(".y-axis")
+    .data([null])
+    .join("g")
+    .attr("class", "y-axis")
+    .transition().duration(1000)
+    .call(d3.axisLeft(y));
+
+  // Axis labels
+  chart.selectAll(".x-label")
+    .data([null])
+    .join("text")
+    .attr("class", "x-label")
+    .attr("x", innerWidth / 2)
+    .attr("y", innerHeight + 45)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "14px")
     .text(xVar.replaceAll('_', ' '));
 
-  chart.append('g').call(d3.axisLeft(y));
-
-  chart.append('text')
-    .attr('transform', 'rotate(-90)')
-    .attr('x', -innerHeight / 2)
-    .attr('y', -45)
-    .attr('text-anchor', 'middle')
-    .attr('font-size', '14px')
+  chart.selectAll(".y-label")
+    .data([null])
+    .join("text")
+    .attr("class", "y-label")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -innerHeight / 2)
+    .attr("y", -45)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "14px")
     .text(yVar.replaceAll('_', ' '));
 
-  chart.selectAll('circle')
-    .data(filtered)
-    .join('circle')
-    .attr('cx', d => x(d[xVar]))
-    .attr('cy', d => y(d[yVar]))
-    .attr('r', 4)
-    .attr('fill', 'steelblue')
-    .attr('opacity', 0.6);
+  // Smooth scatterplot transition
+  const circles = chart.selectAll("circle")
+    .data(filtered, d => d.caseid); // caseid must be unique and stable
+
+  circles.join(
+    enter => enter.append("circle")
+      .attr("r", 4)
+      .attr("fill", "steelblue")
+      .attr("opacity", 0.6)
+      .attr("cx", d => x(d[xVar]))
+      .attr("cy", d => y(d[yVar])),
+    update => update.transition().duration(1000)
+      .attr("cx", d => x(d[xVar]))
+      .attr("cy", d => y(d[yVar])),
+    exit => exit.transition().duration(300).attr("r", 0).remove()
+  );
 }
+
+
 
 
 async function loadCaseData() {
