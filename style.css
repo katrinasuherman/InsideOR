@@ -21,7 +21,7 @@ body {
   #controls {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    /* gap: 1.5rem; */
     align-items: flex-end;
     margin-bottom: 2rem;
   }
@@ -272,6 +272,7 @@ body {
     flex-wrap: wrap;
     gap: 0.5rem;
     padding: 1rem 0;
+    margin-top: 0%;
   }
   
   .optype-pill {
@@ -499,12 +500,9 @@ body {
 /*SURGERY INFO*/
 
 #case-section {
-    display: flex;
-    gap: 2rem;
-    align-items: flex-start;
-    justify-content: center;
-    margin-top: 2rem;
-    
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 #surgeryInfo {
@@ -750,9 +748,9 @@ body {
 #container {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     padding: 20px;
-    max-width: 1000px;      
+    max-width: 900px;      
     margin: 0 auto;         
     width: 100%;            
     flex-wrap: wrap;        
@@ -760,9 +758,10 @@ body {
 }
   
 #ekg-border {
+    transform: scale(0.85); 
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 10px;
     background-color: #ffffff;   
     border: 6px solid #1a2330;   
     border-radius: 10px;
@@ -773,6 +772,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 30px; /* spacing between upper controls, vitals, intervention */
+    margin-top: 0px; 
 }
   
 #upper-controls {
@@ -1084,3 +1084,39 @@ body {
   color: #3a7bd5;
   font-weight: 600;
 }
+
+#case-selector {
+  display: none; /* initially hidden */
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 26px;
+}
+
+#case-explorer {
+  overflow-x: hidden;
+}
+
+.layout-wrapper,
+#case-and-body {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.control-label {
+  font-size: 16px;
+  margin-bottom: 4px; /* Reduce spacing below the label */
+  display: block;
+}
+
+#controls h3 {
+  margin-top: 0.5rem;   /* Reduce top margin */
+  margin-bottom: 0rem; /* Space between label and pills */
+  font-size: 18px;      /* Optional: adjust size */
+  font-weight: 600;     /* Optional: make it slightly bold */
+  color: #222;          /* Optional: make it consistent with rest of UI */
+}
+
