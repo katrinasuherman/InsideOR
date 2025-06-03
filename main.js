@@ -195,8 +195,15 @@ function updateChart() {
 async function loadCaseData() {
   const res = await fetch(`patient.json?nocache=${Date.now()}`);
   caseData = await res.json();
+
   const dropdown = document.getElementById("caseDropdown");
 
+  // ⚠️ Keep the default "-- Select a case --" option
+  dropdown.innerHTML = `
+    <option value="" disabled selected>-- Select a case --</option>
+  `;
+
+  // Add real case options
   caseData.forEach(d => {
     const option = document.createElement("option");
     option.value = d.caseid;
@@ -204,22 +211,15 @@ async function loadCaseData() {
     dropdown.appendChild(option);
   });
 
-  // Automatically select the first case
-  if (caseData.length > 0) {
-    const firstCase = caseData[0];
-    selectedCase = firstCase;
-    dropdown.value = firstCase.caseid;
-    renderSurgeryInfo(firstCase.caseid);
-
-    const sex = firstCase.sex?.toLowerCase();
-    if (orImage) {
-      orImage.src = sex === "f" ? "images/table-female.png" : "images/table-male.png";
-    }
-  }
-
   dropdown.addEventListener("change", () => {
-    const selectedId = parseInt(dropdown.value);
-    selectedCase = caseData.find(d => d.caseid === selectedId);
+    const selectedId = dropdown.value;
+
+    // ✅ Do nothing if it's still the default empty option
+    if (selectedId === "") return;
+
+    selectedCase = caseData.find(d => d.caseid === parseInt(selectedId));
+    if (!selectedCase) return;
+
     renderSurgeryInfo(selectedId);
 
     const sex = selectedCase.sex?.toLowerCase();
@@ -233,6 +233,9 @@ async function loadCaseData() {
     }
   });
 }
+
+
+  
 
 
 function renderSurgeryInfo(caseid) {
@@ -823,48 +826,64 @@ g.append('text')
 //   }
 // );
 
-Promise.all([d3.json(VITALS_URL), d3.json(PROXY_URL)]).then(
-  ([vData, pData]) => {
-    vitalData = vData;
-    proxyData = pData;
+Promise.all([d3.json(VITALS_URL), d3.json(PROXY_URL)]).then(([vData, pData]) => {
+  vitalData = vData;
+  proxyData = pData;
 
-    const caseIDs = Object.keys(vitalData).sort((a, b) => +a - +b);
+  const caseIDs = Object.keys(vitalData).sort((a, b) => +a - +b);
 
-    // Add options to the dropdown
-    caseSelect2.html(null);
-    caseIDs.forEach((id) => {
-      caseSelect2.append('option')
-        .attr('value', id)
-        .text(`Case ${id}`);
-    });
+  // Clear and initialize dropdown
+  caseSelect2.html('');
 
-    // Gather all unique parameter keys
-    const paramSet = new Set();
-    caseIDs.forEach((c) => {
-      if (vitalData[c]) Object.keys(vitalData[c]).forEach((k) => paramSet.add(k));
-      if (proxyData[c]) Object.keys(proxyData[c]).forEach((k) => paramSet.add(k));
-    });
-    allParamKeys = Array.from(paramSet).sort();
+  // Add default placeholder option
+  caseSelect2.append('option')
+    .attr('value', '')
+    .attr('disabled', true)
+    .attr('selected', true)
+    .text('Select a case...');
 
-    // Compute correlation & draw heatmap
-    computeGlobalCorrelation(caseIDs);
-    drawHeatmap();
+  // Add case options
+  caseIDs.forEach((id) => {
+    caseSelect2.append('option')
+      .attr('value', id)
+      .text(`Case ${id}`);
+  });
 
-    // Connect dropdown to scatterplot updates
-    caseSelect2.on('change', () => {
-      updateParamOptions();
-      plotScatter();
-    });
+  // Collect all unique parameter keys
+  const paramSet = new Set();
+  caseIDs.forEach((c) => {
+    if (vitalData[c]) Object.keys(vitalData[c]).forEach((k) => paramSet.add(k));
+    if (proxyData[c]) Object.keys(proxyData[c]).forEach((k) => paramSet.add(k));
+  });
+  allParamKeys = Array.from(paramSet).sort();
 
-    xSelect.on('change', plotScatter);
-    ySelect.on('change', plotScatter);
+  // Draw global correlation heatmap (not case specific)
+  computeGlobalCorrelation(caseIDs);
+  drawHeatmap();
 
-    // Default to first case
-    caseSelect2.property('value', caseIDs[0]);
-    updateParamOptions();
-    plotScatter();
-  }
-);
+  // Only draw scatterplot when a case is selected
+  caseSelect2.on('change', () => {
+    const selectedCase = caseSelect2.property('value');
+    if (!selectedCase) return;
+
+    updateParamOptions(selectedCase);
+    plotScatter(selectedCase);
+  });
+
+  // Update scatter on axis change, if a case is selected
+  xSelect.on('change', () => {
+    const selectedCase = caseSelect2.property('value');
+    if (!selectedCase) return;
+    plotScatter(selectedCase);
+  });
+
+  ySelect.on('change', () => {
+    const selectedCase = caseSelect2.property('value');
+    if (!selectedCase) return;
+    plotScatter(selectedCase);
+  });
+});
+
 
 
 
@@ -1057,6 +1076,7 @@ function plotScatter() {
     .duration(300)
     .attr('r', 0)
     .remove();
+
 
 }
 

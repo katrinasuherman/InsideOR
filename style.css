@@ -1510,5 +1510,49 @@ input[type="range"]::-moz-range-track {
 
 
 
+.conclusion-section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  scroll-snap-align: start;
+  background: #fdfdfd;
+}
+
+.conclusion-box {
+  max-width: 700px;
+  font-size: 1.5rem;
+  line-height: 1.8;
+  font-family: system-ui, sans-serif;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+
+.highlighted {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--teal);
+}
+
+/* Optional: subtle fade-in effect */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s ease-out forwards;
+}
+.delay1 { animation-delay: 0.4s; }
+.delay2 { animation-delay: 0.8s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 

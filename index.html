@@ -26,7 +26,7 @@
           how age, BMI, approach, and diagnosis influence surgical outcomes.
         </p>
         <div class="hero-buttons">
-          <a href="#intro" class="btn primary">Start Exploring</a>
+          <a href="#intro-0" class="btn primary">Start Exploring</a>
           <a href="https://vitaldb.net/dataset/" class="btn outline" target="_blank" rel="noopener noreferrer">Data</a>
         </div>
       </div>
@@ -54,7 +54,11 @@
       </p>
       <div id="case-selector">
         <label for="caseDropdown">Choose a case:</label>
-        <select id="caseDropdown"></select>
+        <select id="caseDropdown">
+          <option value="" disabled selected>-- Select a case --</option>
+        </select>
+        
+        
       </div>
     </div>
   </section>
@@ -328,11 +332,17 @@
       </section>
     
       <section class="conclusion-section">
-        <p>
-          By analyzing thousands of cases, we see trends emerge. <br>
-          We observe that surgery time tends to increase with higher values of Intraop Crystalloid, Intraop Rocuronium, and Intraop Urine Output.<br>
-          We also found that ASA score and Preoperative Albumin levels are significant factors affecting ICU stay duration. 
-        </p>
+        <div class="conclusion-box">
+          <p class="fade-in"><strong>By analyzing thousands of cases, we see trends emerge.</strong></p>
+    
+          <p class="fade-in delay1">
+            <strong>Surgery time</strong> increases with <span class="highlight-blue">Intraoperative Crystalloid</span>, <span class="highlight-blue">Rocuronium</span>, and <span class="highlight-blue">Urine Output</span>, and tends to be <span class="highlight-blue">longer for male patients</span>.
+          </p>
+    
+          <p class="fade-in delay2">
+            <strong>ICU stays</strong> are longer when <span class="highlight-red">ASA scores</span> are high and <span class="highlight-red">Albumin</span> is low.
+          </p>
+        </div>
       </section>
     </div>
     
