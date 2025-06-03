@@ -99,23 +99,28 @@ function updateChart() {
     .attr("class", "chart-group")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    let filtered = data.filter(d => {
-      const yVal = +d[yVar];
-      if (isNaN(yVal) || d[yVar] === "" || d[xVar] === "") return false;
-      if (yVar === "icu_days" && yVal > 50) return false;
+  let filtered = data.filter(d => {
+    const yVal = +d[yVar];
+    if (isNaN(yVal) || d[yVar] === "" || d[xVar] === "") return false;
+    if (yVar === "icu_days" && yVal > 50) return false;
+  
+    // ✅ New age slider filtering
+    const minAge = parseInt(ageMinInput?.value || 0);
+    const maxAge = parseInt(ageMaxInput?.value || 100);
+    if (d.age < minAge || d.age > maxAge) return false;
     
-      // ✅ New age slider filtering
-      const minAge = parseInt(ageMinInput?.value || 0);
-      const maxAge = parseInt(ageMaxInput?.value || 100);
-      if (d.age < minAge || d.age > maxAge) return false;
-      
-    
-      if (showEmergencyOnly && d.emop !== 1 && d.emop !== "1") return false;
-      if ((d.sex === "M" && !showMale) || (d.sex === "F" && !showFemale)) return false;
-      if (selectedOptype && selectedOptype !== "All" && d.optype !== selectedOptype) return false;
-    
-      return true;
-    });
+  
+  // ✅ New BMI slider filtering
+    const minBmi = parseFloat(document.getElementById('bmiMin').value || 10);
+    const maxBmi = parseFloat(document.getElementById('bmiMax').value || 50);
+    if (d.bmi < minBmi || d.bmi > maxBmi) return false;
+
+    if (showEmergencyOnly && d.emop !== 1 && d.emop !== "1") return false;
+    if ((d.sex === "M" && !showMale) || (d.sex === "F" && !showFemale)) return false;
+    if (selectedOptype && selectedOptype !== "All" && d.optype !== selectedOptype) return false;
+  
+    return true;
+  });
     
 
   // Summary text
@@ -826,64 +831,48 @@ g.append('text')
 //   }
 // );
 
-Promise.all([d3.json(VITALS_URL), d3.json(PROXY_URL)]).then(([vData, pData]) => {
-  vitalData = vData;
-  proxyData = pData;
+Promise.all([d3.json(VITALS_URL), d3.json(PROXY_URL)]).then(
+  ([vData, pData]) => {
+    vitalData = vData;
+    proxyData = pData;
 
-  const caseIDs = Object.keys(vitalData).sort((a, b) => +a - +b);
+    const caseIDs = Object.keys(vitalData).sort((a, b) => +a - +b);
 
-  // Clear and initialize dropdown
-  caseSelect2.html('');
+    // Add options to the dropdown
+    caseSelect2.html(null);
+    caseIDs.forEach((id) => {
+      caseSelect2.append('option')
+        .attr('value', id)
+        .text(`Case ${id}`);
+    });
 
-  // Add default placeholder option
-  caseSelect2.append('option')
-    .attr('value', '')
-    .attr('disabled', true)
-    .attr('selected', true)
-    .text('Select a case...');
+    // Gather all unique parameter keys
+    const paramSet = new Set();
+    caseIDs.forEach((c) => {
+      if (vitalData[c]) Object.keys(vitalData[c]).forEach((k) => paramSet.add(k));
+      if (proxyData[c]) Object.keys(proxyData[c]).forEach((k) => paramSet.add(k));
+    });
+    allParamKeys = Array.from(paramSet).sort();
 
-  // Add case options
-  caseIDs.forEach((id) => {
-    caseSelect2.append('option')
-      .attr('value', id)
-      .text(`Case ${id}`);
-  });
+    // Compute correlation & draw heatmap
+    computeGlobalCorrelation(caseIDs);
+    drawHeatmap();
 
-  // Collect all unique parameter keys
-  const paramSet = new Set();
-  caseIDs.forEach((c) => {
-    if (vitalData[c]) Object.keys(vitalData[c]).forEach((k) => paramSet.add(k));
-    if (proxyData[c]) Object.keys(proxyData[c]).forEach((k) => paramSet.add(k));
-  });
-  allParamKeys = Array.from(paramSet).sort();
+    // Connect dropdown to scatterplot updates
+    caseSelect2.on('change', () => {
+      updateParamOptions();
+      plotScatter();
+    });
 
-  // Draw global correlation heatmap (not case specific)
-  computeGlobalCorrelation(caseIDs);
-  drawHeatmap();
+    xSelect.on('change', plotScatter);
+    ySelect.on('change', plotScatter);
 
-  // Only draw scatterplot when a case is selected
-  caseSelect2.on('change', () => {
-    const selectedCase = caseSelect2.property('value');
-    if (!selectedCase) return;
-
-    updateParamOptions(selectedCase);
-    plotScatter(selectedCase);
-  });
-
-  // Update scatter on axis change, if a case is selected
-  xSelect.on('change', () => {
-    const selectedCase = caseSelect2.property('value');
-    if (!selectedCase) return;
-    plotScatter(selectedCase);
-  });
-
-  ySelect.on('change', () => {
-    const selectedCase = caseSelect2.property('value');
-    if (!selectedCase) return;
-    plotScatter(selectedCase);
-  });
-});
-
+    // Default to first case
+    caseSelect2.property('value', caseIDs[0]);
+    updateParamOptions();
+    plotScatter();
+  }
+);
 
 
 
@@ -1302,4 +1291,11 @@ window.addEventListener("scroll", () => {
   const docHeight = document.body.scrollHeight - window.innerHeight;
   const scrolled = (scrollTop / docHeight) * 100;
   document.getElementById("scroll-bar").style.width = `${scrolled}%`;
+});
+
+d3.selectAll('#bmiMin, #bmiMax').on('input', () => {
+  const min = +d3.select('#bmiMin').property('value');
+  const max = +d3.select('#bmiMax').property('value');
+  d3.select('#bmiValue').text(`${min} - ${max}`);
+  updateChart();
 });

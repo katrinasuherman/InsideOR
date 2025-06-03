@@ -132,6 +132,36 @@
     </div>
 </section>
 
+<div id="scrolly-transition">
+  <!-- Page 1: One patient's story -->
+  <section class="conclusion-section">
+    <div class="conclusion-box">
+      <p><span class="highlighted">From one case to thousands.</span></p>
+      <p class="fade-in"><strong>You've just followed one patient's journey from surgery to discharge.</strong></p>
+    </div>
+  </section>
+
+  <!-- Page 2: Begin exploring the data -->
+  <section class="conclusion-section">
+    <div class="conclusion-box">
+      <p class="fade-in delay1">
+        Now let's explore what the data tells us across <span class="highlight-blue">all patients</span>.
+      </p>
+
+      <p class="fade-in delay2">
+        We’ll start by analyzing their <span class="highlight-blue">vital signs</span> and <span class="highlight-blue">interventions</span> in real time,<br>
+        then expand to uncover patterns across <span class="highlight-blue">surgical procedures</span>, <span class="highlight-blue">departments</span>, and <span class="highlight-blue">outcomes</span>.
+      </p>
+
+      <div class="button-row fade-in delay3">
+        <a href="#explanation-heatmap-section" class="btn primary">Explore Time Series →</a>
+        <a href="#patientdata-section" class="btn secondary">Explore Patient Data →</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+
 <section class="explanation-heatmap-section scroll-section" id="explanation-heatmap-section">
   <div id="main-container">
     <div id="explanation">
@@ -191,10 +221,6 @@
 
     <div id="visualization">
       <div id="controls">
-        <!-- <div class="control-block">
-          <label for="case-select">Select Case ID:</label>
-          <select id="case-select"></select>
-        </div> -->
         <div class="control-block">
           <label for="param-x">X‐axis:</label>
           <select id="param-x"></select>
@@ -225,7 +251,7 @@
 
 
     <!-- SCATTER PLOT EXPLORER SECTION -->
-    <section class="scatter-section">
+    <section id="patientdata-section" class="scatter-section">
       <!-- LEFT COLUMN: SCROLLABLE TEXT -->
       <div class="scatter-text">
         <section class="instructions">
@@ -243,52 +269,64 @@
       <!-- RIGHT COLUMN: FIXED VISUALIZATION -->
       <div class="vis-panel">
         <section id="controls">
-          <h3>Operation types:</h1>
-          <div class="optype-filter">
-            <label class="optype-pill"><input type="radio" name="optype" value="All" checked /> All</label>
-            <label class="optype-pill"><input type="radio" name="optype" value="Colorectal" /> Colorectal</label>
-            <label class="optype-pill"><input type="radio" name="optype" value="Stomach" /> Stomach</label>
-            <label class="optype-pill"><input type="radio" name="optype" value="Biliary/Pancreas" /> Biliary/Pancreas</label>
-            <label class="optype-pill"><input type="radio" name="optype" value="Vascular" /> Vascular</label>
-            <label class="optype-pill"><input type="radio" name="optype" value="Major resection" /> Major resection</label>
-            <label class="optype-pill"><input type="radio" name="optype" value="Breast" /> Breast</label>
-            <label class="optype-pill"><input type="radio" name="optype" value="Minor resection" /> Minor resection</label>
-            <label class="optype-pill"><input type="radio" name="optype" value="Transplantation" /> Transplantation</label>
-            <label class="optype-pill"><input type="radio" name="optype" value="Hepatic" /> Hepatic</label>
-            <label class="optype-pill"><input type="radio" name="optype" value="Thyroid" /> Thyroid</label>
-            <label class="optype-pill"><input type="radio" name="optype" value="Others" /> Others</label>
-          </div>
-
-
           <div class="controls-wrapper">
-          <div class="filter-card">
-            <div class="age-slider">
-              <label for="ageRange">Age Range: <span id="ageValue">0 - 100</span></label>
-              <input type="range" id="ageMin" min="0" max="100" value="0" step="1" />
-              <input type="range" id="ageMax" min="0" max="100" value="100" step="1" />
+          <!-- <h3>Operation types:</h1> -->
+            <div class="filter-card">
+              <h3>Operation Types:</h1>
+              <div class="optype-filter">
+                <label class="optype-pill"><input type="radio" name="optype" value="All" checked /> All</label>
+                <label class="optype-pill"><input type="radio" name="optype" value="Colorectal" /> Colorectal</label>
+                <label class="optype-pill"><input type="radio" name="optype" value="Stomach" /> Stomach</label>
+                <label class="optype-pill"><input type="radio" name="optype" value="Biliary/Pancreas" /> Biliary/Pancreas</label>
+                <label class="optype-pill"><input type="radio" name="optype" value="Vascular" /> Vascular</label>
+                <label class="optype-pill"><input type="radio" name="optype" value="Major resection" /> Major resection</label>
+                <label class="optype-pill"><input type="radio" name="optype" value="Breast" /> Breast</label>
+                <label class="optype-pill"><input type="radio" name="optype" value="Minor resection" /> Minor resection</label>
+                <label class="optype-pill"><input type="radio" name="optype" value="Transplantation" /> Transplantation</label>
+                <label class="optype-pill"><input type="radio" name="optype" value="Hepatic" /> Hepatic</label>
+                <label class="optype-pill"><input type="radio" name="optype" value="Thyroid" /> Thyroid</label>
+                <label class="optype-pill"><input type="radio" name="optype" value="Others" /> Others</label>
+              </div>
             </div>
-            <div class="sex-toggle">
-              <span>Sex:</span>
-      
-              <label class="icon-toggle">
-                <input type="checkbox" id="showMale" class="male" checked />
-                <span class="icon">♂️</span>
-              </label>
-              <label class="icon-toggle">
-                <input type="checkbox" id="showFemale" class="female" checked />
-                <span class="icon">♀️</span>
-              </label>
+            
+
+
+          <!-- <div class="controls-wrapper"> -->
+            <div class="filter-card">
+              <!-- AGE SLIDER -->
+              <div class="age-slider">
+                <label for="ageRange">Age Range: <span id="ageValue">0 - 100</span></label>
+                <input type="range" id="ageMin" min="0" max="100" value="0" step="1" />
+                <input type="range" id="ageMax" min="0" max="100" value="100" step="1" />
+              </div>
+            
+              <!-- BMI SLIDER -->
+              <div class="bmi-slider">
+                <label for="bmiRange">BMI Range: <span id="bmiValue">10 - 50</span></label>
+                <input type="range" id="bmiMin" min="10" max="50" value="10" step="1" />
+                <input type="range" id="bmiMax" min="10" max="50" value="50" step="1" />
+              </div>
+            
+              <!-- SEX TOGGLE -->
+              <div class="sex-toggle">
+                <span>Sex:</span>
+                <label class="icon-toggle">
+                  <input type="checkbox" id="showMale" class="male" checked />
+                  <span class="icon">♂️</span>
+                </label>
+                <label class="icon-toggle">
+                  <input type="checkbox" id="showFemale" class="female" checked />
+                  <span class="icon">♀️</span>
+                </label>
+              </div>
             </div>
-          </div>
+            
 
           <div class="axis-box">
             <div class="axis-row">
               <div class="axis-control">
                 <label for="xQuantSelect"><strong>X-axis:</strong></label>
                 <select id="xQuantSelect">
-                  <option value="height">Height</option>
-                  <option value="weight">Weight</option>
-                  <option value="bmi">BMI</option>
                   <option value="asa">ASA Score</option>
                   <option value="intraop_crystalloid">Intraop Crystalloid</option>
                   <option value="intraop_rocu">Intraop Rocuronium</option>
@@ -341,6 +379,10 @@
     
           <p class="fade-in delay2">
             <strong>ICU stays</strong> are longer when <span class="highlight-red">ASA scores</span> are high and <span class="highlight-red">Albumin</span> is low.
+          </p>
+
+          <p class="fade-in delay3">
+            <strong>Vitals</strong> show strong physiological relationships—<span class="highlight-blue">Arterial BP</span> closely tracks with <span class="highlight-blue">Diastolic BP</span>, and <span class="highlight-blue">End-Tidal CO₂</span> correlates tightly with <span class="highlight-blue">ETCO₂</span>.
           </p>
         </div>
       </section>

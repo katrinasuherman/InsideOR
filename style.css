@@ -128,11 +128,25 @@ body {
     transform: translateX(22px);
   }
   
-  .sex-toggle {
+  /* .sex-toggle {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     font-weight: 600;
+  } */
+  
+  .sex-toggle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+  }
+  
+  .sex-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
   
   .icon-toggle {
@@ -1257,43 +1271,6 @@ body {
   display: inline-block; 
 }
 
-/* .tooltip {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  padding: 12px 16px;
-  background-color: #1a1f2b;         
-  color: #e2f0ff;                    
-  font-size: 14px;
-  line-height: 1.6;
-  border-left: 10px solid #4dc9ff;    
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  pointer-events: none;
-  display: none;
-  z-index: 10;
-  width: 200px;
-} */
-
-/* .tooltip {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  padding: 12px 16px;
-  background-color: #1a1f2b;         
-  color: #e2f0ff;                    
-  font-size: 14px;
-  line-height: 1.6;
-  border-left: 10px solid #4dc9ff;    
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  pointer-events: none;
-  z-index: 10;
-  width: 200px;
-
-  display: none;
-} */
-
 .tooltip strong {
   font-size: 15px;
   color: #ffffff;
@@ -1351,6 +1328,7 @@ body {
   margin-top: 0.3rem;
 }
 
+
 input[type="range"] {
   appearance: none;
   background: #ddd;
@@ -1391,6 +1369,8 @@ input[type="range"]::-moz-range-track {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin: 2rem;
+  margin-left: 0;
 }
 
 .filter-card {
@@ -1495,21 +1475,6 @@ input[type="range"]::-moz-range-track {
   color: #333;
 }
 
-.highlight {
-  color: #e53935;
-  font-weight: 700;
-}
-
-.highlight-blue {
-  color: var(--teal); /* or use #3b82f6 */
-  font-weight: 700;
-}
-
-
-
-
-
-
 .conclusion-section {
   min-height: 100vh;
   display: flex;
@@ -1553,6 +1518,62 @@ input[type="range"]::-moz-range-track {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.bmi-slider {
+  margin-top: 1rem;
+}
+
+.bmi-slider label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.bmi-slider input[type="range"] {
+  width: 100%;
+  margin: 0.25rem 0;
+}
+
+.transition-section {
+  padding: 4rem 2rem;
+  text-align: center;
+  background-color: #fdfdfd;
+}
+
+.transition-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.transition-section .lead-text {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+.transition-section img {
+  max-width: 400px;
+  margin: 2rem auto;
+}
+
+.transition-section .btn.primary {
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.button-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn.secondary {
+  background-color: #eee;
+  color: #333;
+  border: 1px solid #aaa;
 }
 
 
