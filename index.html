@@ -40,7 +40,7 @@
     <div class="intro-content">
       <p class="surgery-lead">
         Everyone undergoing <span class="highlight">surgery</span> wonders what will happen to them.<br>
-        <strong>How long will it take?</strong> Will I recover?<br>
+        How long will it take? Will I recover?<br>
         How does my <span class="highlight-blue">experience</span> compare to others?
       </p>
     </div>
@@ -144,7 +144,7 @@
   </section>
 
   <!-- Page 2: Begin exploring the data -->
-  <section class="conclusion-section">
+  <!-- <section class="conclusion-section">
     <div class="conclusion-box">
       <p class="fade-in delay1">
         Now let's explore what the data tells us across <span class="highlight-blue">all patients</span>.
@@ -160,7 +160,21 @@
         <a href="#patientdata-section" class="btn secondary">Explore Patient Data →</a>
       </div>
     </div>
+  </section> -->
+  <section class="conclusion-section" id="timeseries-conclusion">
+    <div class="conclusion-box">
+      <p class="fade-in delay1">
+        Now let's explore what the data tells us across <span class="highlight-blue">all patients</span>.
+      </p>
+      <p class="fade-in delay2">
+        We’ll start by analyzing their <span class="highlight-blue">vital signs</span> and <span class="highlight-blue">interventions</span> in real time.
+      </p>
+      <div class="button-row fade-in delay3">
+        <a href="#explanation-heatmap-section" class="btn primary">Explore Time Series →</a>
+      </div>
+    </div>
   </section>
+  
 </div>
 
 
@@ -251,22 +265,40 @@
   </div>
 </section>
 
+<section class="conclusion-section" id="patientdata-intro">
+  <div class="conclusion-box">
+    <p class="fade-in delay1">
+      But remember, <strong>every patient is different</strong>.
+    </p>
+    <p class="fade-in delay2">
+      Now let’s explore how <span class="highlight-blue">different factors</span>
+      impact outcomes like surgery duration and ICU stay.
+    </p>
+    <div class="button-row fade-in delay3">
+      <a href="#patientdata-section" class="btn primary">Explore Patient Data →</a>
+    </div>
+  </div>
+</section>
+
+
 
     <!-- SCATTER PLOT EXPLORER SECTION -->
     <section id="patientdata-section" class="scatter-section">
       <!-- LEFT COLUMN: SCROLLABLE TEXT -->
-      <div class="scatter-text">
-        <section class="instructions">
-          <h3>🧭 How to Use the Surgical Outcome Explorer</h3>
-          <ol>
-            <li><strong>Choose an Operation Type:</strong> Select a type (e.g., Colorectal, Stomach) to filter surgeries.</li>
-            <li><strong>Filter by Sex:</strong> Use ♂️ / ♀️ toggles to include or exclude patients by sex.</li>
-            <li><strong>Select Axes:</strong> Use dropdowns to change the X-axis and Y-axis (e.g., BMI vs. ICU days).</li>
-            <li><strong>Toggle Emergency Cases:</strong> Use the switch to focus on emergency-only surgeries.</li>
-            <li><strong>Interpret the Results:</strong> View patterns in the chart and check summary stats below.</li>
-          </ol>
-        </section>
-      </div>
+<!-- LEFT COLUMN: SCROLLABLE TEXT -->
+    <div class="scatter-text">
+      <section class="instructions">
+        <h3>🧭 How to Use the Surgical Outcome Explorer</h3>
+        <ol>
+          <li><strong>Filter by Operation Type:</strong> Click a pill to filter surgeries (e.g., Stomach, Vascular). Select <em>All</em> to reset.</li>
+          <li><strong>Set Patient Criteria:</strong> Use the <strong>Age</strong> and <strong>BMI</strong> sliders to narrow the patient group.</li>
+          <li><strong>Choose Patient Sex:</strong> Toggle ♂️ / ♀️ buttons to include or exclude male/female patients.</li>
+          <li><strong>Choose What to Compare:</strong> Use the X-axis and Y-axis dropdowns to explore relationships (e.g., ASA vs. Surgery Time).</li>
+          <li><strong>Interpret the Results:</strong> Watch how patterns shift based on your filters and check the summary stats below.</li>
+        </ol>
+      </section>
+    </div>
+
     
       <!-- RIGHT COLUMN: FIXED VISUALIZATION -->
       <div class="vis-panel">
