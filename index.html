@@ -8,6 +8,9 @@
   <script type="module" src="main.js" defer></script>
 </head>
 <body>
+  <div id="scroll-indicator">
+    <div id="scroll-bar"></div>
+  </div>
   <main class="scroll-container">
 
     <!-- HERO SECTION -->
@@ -32,21 +35,30 @@
       </div>
     </section>
 
-    <!-- INTRO TEXT SECTION -->
-    <section class="intro-box scroll-section" id="intro">
-      <div class="intro-content">
-        <p class="reveal" id="line1">
-          What happens inside the <span class="highlight-blue">operating room</span>?
-        </p>        
-        <p id="line2" class="reveal hidden">
-          Select from <span class="highlight-red">20 surgical cases</span> and step into the OR with us.
-        </p>
-        <div id="case-selector" style="display: none;">
-          <label for="caseDropdown">Choose a case:</label>
-          <select id="caseDropdown"></select>
-        </div>
+  <!-- PAGE 1: Opening Message -->
+  <section class="fullscreen-section" id="intro-0">
+    <div class="intro-content">
+      <p class="surgery-lead">
+        <span class="highlight">Everyone</span> undergoing surgery wonders what will happen to them.<br>
+        <strong>How long will it take?</strong> Will I recover? How does my <span class="highlight-blue">experience</span> compare to others?
+      </p>
+      
+    </div>
+  </section>
+
+  <section class="fullscreen-section" id="intro">
+    <div class="intro-content">
+      <p>
+        What happens inside the <span class="highlight-blue">operating room</span>?<br>
+        Select from <span class="highlight-red">20 surgical cases</span> and step into the OR with us.
+      </p>
+      <div id="case-selector">
+        <label for="caseDropdown">Choose a case:</label>
+        <select id="caseDropdown"></select>
       </div>
-    </section>
+    </div>
+  </section>
+  
 
     <!-- CASE EXPLORER SECTION -->
     <section class="case-explorer scroll-section" id="case-explorer">    
