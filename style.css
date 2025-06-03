@@ -1455,7 +1455,7 @@ input[type="range"]::-moz-range-track {
 
 .intro-content {
   max-width: 600px;
-  text-align: left;
+  text-align: center;
 }
 
 #intro p {
