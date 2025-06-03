@@ -216,22 +216,24 @@ async function loadCaseData() {
     dropdown.appendChild(option);
   });
 
-  dropdown.addEventListener("change", () => {
-    const selectedId = dropdown.value;
-
-    // ✅ Do nothing if it's still the default empty option
+  const newDropdown = dropdown.cloneNode(true);
+  dropdown.parentNode.replaceChild(newDropdown, dropdown);
+  
+  // Now safely add a single new listener
+  newDropdown.addEventListener("change", () => {
+    const selectedId = newDropdown.value;
     if (selectedId === "") return;
-
+  
     selectedCase = caseData.find(d => d.caseid === parseInt(selectedId));
     if (!selectedCase) return;
-
+  
     renderSurgeryInfo(selectedId);
-
+  
     const sex = selectedCase.sex?.toLowerCase();
     if (orImage) {
       orImage.src = sex === "f" ? "images/table-female.png" : "images/table-male.png";
     }
-
+  
     const nextSection = document.getElementById("case-explorer");
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: "smooth" });
@@ -378,10 +380,6 @@ Promise.all([d3.json("vital_data.json"), d3.json("proxy_drug_data.json")])
       const selectedId = dropdown.value;
       resetAndDrawForCase(selectedId);
     });
-    
-    if (dropdown.value) {
-      resetAndDrawForCase(dropdown.value);
-    }
     
   })
   .catch((error) => {
@@ -867,8 +865,6 @@ Promise.all([d3.json(VITALS_URL), d3.json(PROXY_URL)]).then(
     xSelect.on('change', plotScatter);
     ySelect.on('change', plotScatter);
 
-    // Default to first case
-    caseSelect2.property('value', caseIDs[0]);
     updateParamOptions();
     plotScatter();
   }

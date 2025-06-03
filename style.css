@@ -1576,4 +1576,39 @@ input[type="range"]::-moz-range-track {
   border: 1px solid #aaa;
 }
 
+.hero-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6rem 2rem;
+  background: #fff;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.intro-content {
+  max-width: 700px;
+}
+
+.surgery-lead {
+  font-size: 1.8rem;
+  line-height: 2.8rem;
+  color: #333;
+  font-weight: 400;
+}
+
+.surgery-lead strong {
+  font-weight: 700;
+  color: #111;
+}
+
+.highlight {
+  color: var(--teal, #6a5acd);
+  font-weight: 600;
+}
+
+.highlight-blue {
+  color: #4682b4;
+  font-weight: 600;
+}
 
