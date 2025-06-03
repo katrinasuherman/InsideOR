@@ -23,18 +23,19 @@ body {
     flex-wrap: wrap;
     /* gap: 1.5rem; */
     align-items: flex-end;
-    margin-bottom: 2rem;
+    margin-bottom: 0rem;
+    padding-bottom: 0;
   }
   
   #controls label {
     font-weight: 600;
     display: block;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0rem;
   }
   
   #controls select,
   #controls input[type="radio"] {
-    padding: 0.4rem;
+    padding: 0rem;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -1113,7 +1114,7 @@ body {
 }
 
 #controls h3 {
-  margin-top: 0.5rem;   /* Reduce top margin */
+  margin-top: 0rem;   /* Reduce top margin */
   margin-bottom: 0rem; /* Space between label and pills */
   font-size: 18px;      /* Optional: adjust size */
   font-weight: 600;     /* Optional: make it slightly bold */
