@@ -241,10 +241,6 @@ async function loadCaseData() {
   });
 }
 
-
-  
-
-
 function renderSurgeryInfo(caseid) {
   const surgery = caseData.find(d => Number(d.caseid) === Number(caseid));
   const container = document.getElementById("surgeryInfo");
@@ -260,13 +256,6 @@ function renderSurgeryInfo(caseid) {
     <div class="surgery-section"><div class="surgery-section-title">Medical Context</div><p><strong>Emergency:</strong> ${surgery.emop || 'N/A'}</p><p><strong>Diagnosis:</strong> ${surgery.dx}</p><p><strong>ASA:</strong> ${surgery.asa}</p></div>
   `;
 }
-
-// orImage.addEventListener("mousemove", (e) => {
-//   if (selectedCase) {
-//     tooltip.style.left = `${e.pageX + 20}px`;
-//     tooltip.style.top = `${e.pageY + 20}px`;
-//   }
-// });
 
 orImage.addEventListener("mousemove", (e) => {
   if (selectedCase && orContainer) {

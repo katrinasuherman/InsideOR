@@ -1,13 +1,17 @@
 :root {
   --blue-white: #E7EBEB;
   --teal: #6D9DC5;
-  
+}
+
+html, body {
+  height: auto;
+  overflow-y: auto;
 }
 
 body {
     font-family: 'Segoe UI', sans-serif;
     margin: 6rem;
-    background-color: ;
+    background-color: var(--blue-white);
     color: #333;
     line-height: 1.6;
   }
@@ -128,13 +132,6 @@ body {
     transform: translateX(22px);
   }
   
-  /* .sex-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
-  } */
-  
   .sex-toggle {
     display: flex;
     flex-direction: column;
@@ -169,11 +166,11 @@ body {
   }
   
   .icon-toggle input[type="checkbox"]:checked.male {
-    background-color: #007bff; /* blue */
+    background-color: #6D9DC5; /* blue */
   }
   
   .icon-toggle input[type="checkbox"]:checked.female {
-    background-color: #e91e63; /* pink */
+    background-color: #d7225e9a; /* pink */
   }
 
   .filter-card {
@@ -320,9 +317,9 @@ body {
   
   .optype-pill input:checked + span,
   .optype-pill:has(input:checked) {
-    background-color: #3b82f6;
+    background-color: #6D9DC5;
     color: white;
-    border-color: #3b82f6;
+    border-color: #6D9DC5;
     font-weight: 300;
   }
   
@@ -336,9 +333,11 @@ body {
   
   
   .scroll-container {
-    overflow-y: auto;
-    height: auto; /* Let it grow naturally */
+    height: auto !important;
+    overflow: visible !important;
+    display: block !important;
   }
+  
 
   .scroll-section {
     scroll-snap-align: start;
@@ -350,6 +349,8 @@ body {
     gap: 2rem;
     padding-top: 4rem;
     justify-content: flex-start;
+    height: auto !important;
+    overflow: visible !important;
   }
   
   
@@ -406,9 +407,14 @@ body {
   .scatter-section {
     display: flex;
     flex-direction: row;
-    height: 100vh;
-    overflow: hidden;
+    flex-wrap: wrap;
+    padding: 3rem 2rem;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    box-sizing: border-box;
   }
+  
   
   .scatter-text {
     flex: 0 0 35%; /* fixed width column */
@@ -429,12 +435,12 @@ body {
   
   .vis-panel {
     position: relative;
-    flex: 1; /* take up remaining space */
-    height: 100vh; /* full viewport height */
+    flex: 1;
+    min-width: 400px;
     padding: 2rem;
     box-sizing: border-box;
-    overflow: auto;
   }
+  
   
 
   
@@ -1012,7 +1018,7 @@ body {
 .summary-box {
   background-color: #f8f9fb;
   border: 1px solid #d0e4f1;
-  border-left: 10px solid #4dc9ff;
+  border-left: 10px solid #6D9DC5;
   border-radius: 12px;
   padding: 1.5rem 2rem;
   font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
@@ -1086,14 +1092,15 @@ body {
 
 .instructions {
   background-color: #f8f9fb;
-  border-left: 4px solid #4b8bec;
+  border: 1px solid #d0e4f1;
+  border-left: 10px solid #6D9DC5;
+  border-radius: 12px;
   padding: 1.5rem 1.75rem;
-  border-radius: 0.75rem;
-  margin-top: 1rem;
   font-family: system-ui, sans-serif;
   color: #333;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
+
 
 .instructions h3 {
   font-size: 1.25rem;
@@ -1305,8 +1312,6 @@ body {
 
 #scrolly-conclusion {
   scroll-snap-type: y mandatory;
-  overflow-y: scroll;
-  height: 100vh;
 }
 
 .conclusion-section p {
@@ -1423,8 +1428,9 @@ input[type="range"]::-moz-range-track {
 
 #scroll-bar {
   height: 100%;
-  width: 0%;
-  background: linear-gradient(to right, #3b82f6, #60a5fa); /* blue theme gradient */
+  width: 200%;
+  height: 0.5rem;
+  background: linear-gradient(to right, rgb(42, 63, 119), #5a9ccba6); /* blue theme gradient */
   transition: width 0.2s ease-out;
   border-radius: 0 8px 8px 0;
   box-shadow: 0 0 5px rgba(59, 130, 246, 0.4);
@@ -1608,7 +1614,31 @@ input[type="range"]::-moz-range-track {
 }
 
 .highlight-blue {
-  color: #4682b4;
+  color: #6D9DC5;
   font-weight: 600;
 }
 
+.credits-section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  color: #444;
+  text-align: center;
+  padding: 3rem;
+  scroll-snap-align: start;
+  /* font-size: 1rem; */
+}
+
+.credits-box p {
+  font-size: 2rem !important;
+  line-height: 3rem;         /* More breathing space */
+  font-weight: 500;
+  font-family: system-ui, sans-serif;
+  max-width: 700px;
+}
+
+.credits-box strong {
+  color: #2c3e50;
+}
