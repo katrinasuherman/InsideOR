@@ -1245,3 +1245,22 @@ function formatSecondsToMMSS(sec) {
     .padStart(2, '0');
   return `${m}:${s}`;
 }
+
+const ageMinInput = document.getElementById('ageMin');
+const ageMaxInput = document.getElementById('ageMax');
+const ageValueSpan = document.getElementById('ageValue');
+
+function updateAgeDisplay() {
+  const minAge = parseInt(ageMinInput.value);
+  const maxAge = parseInt(ageMaxInput.value);
+  if (minAge > maxAge) {
+    // Auto-fix invalid range
+    if (event.target === ageMinInput) ageMaxInput.value = minAge;
+    else ageMinInput.value = maxAge;
+  }
+  ageValueSpan.textContent = `${ageMinInput.value} - ${ageMaxInput.value}`;
+  updateScatterPlot(); // Or whatever function filters and re-renders the chart
+}
+
+ageMinInput.addEventListener('input', updateAgeDisplay);
+ageMaxInput.addEventListener('input', updateAgeDisplay);

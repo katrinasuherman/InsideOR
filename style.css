@@ -163,16 +163,17 @@ body {
   }
 
   .filter-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 0.8rem 1rem;
-    border-radius: 8px;
+    background-color: #f8f8f8;          /* Match axis-box background */
+    padding: 1rem;                      /* Match internal spacing */
+    border-radius: 8px;                 /* Rounded corners */
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);  /* Match axis-box shadow */
     margin-bottom: 1rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  
+    display: flex;                      /* Flexible layout */
+    flex-wrap: wrap;                    /* Allow wrapping */
+    gap: 1rem;                          /* Consistent spacing */
   }
+  
 
 /* === HERO SECTION - REFRESHED DESIGN === */
 .hero-section {
@@ -1335,6 +1336,95 @@ body {
   max-width: 700px;
   margin: 0 auto;
   font-family: system-ui, sans-serif;
+}
+
+.age-slider {
+  margin-top: 1rem;
+}
+
+.age-slider input[type="range"] {
+  width: 100%;
+  margin-top: 0.3rem;
+}
+
+input[type="range"] {
+  appearance: none;
+  background: #ddd;
+  height: 6px;
+  border-radius: 4px;
+  outline: none;
+  margin: 6px 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  background: #555;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px; /* aligns thumb vertically */
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  background: #555;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Remove blue fill track */
+input[type="range"]::-webkit-slider-runnable-track {
+  background: #ddd;
+}
+input[type="range"]::-moz-range-track {
+  background: #ddd;
+}
+
+.controls-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.filter-card {
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.axis-box {
+  padding: 1rem;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.axis-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.axis-control {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 180px;
+}
+
+.axis-control label {
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.axis-control select {
+  padding: 0.4rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
 

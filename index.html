@@ -242,10 +242,18 @@
             <label class="optype-pill"><input type="radio" name="optype" value="Thyroid" /> Thyroid</label>
             <label class="optype-pill"><input type="radio" name="optype" value="Others" /> Others</label>
           </div>
-    
+
+
+          <div class="controls-wrapper">
           <div class="filter-card">
+            <div class="age-slider">
+              <label for="ageRange">Age Range: <span id="ageValue">0 - 100</span></label>
+              <input type="range" id="ageMin" min="0" max="100" value="0" step="1" />
+              <input type="range" id="ageMax" min="0" max="100" value="100" step="1" />
+            </div>
             <div class="sex-toggle">
               <span>Sex:</span>
+      
               <label class="icon-toggle">
                 <input type="checkbox" id="showMale" class="male" checked />
                 <span class="icon">♂️</span>
@@ -255,30 +263,34 @@
                 <span class="icon">♀️</span>
               </label>
             </div>
-    
-            <div class="axis-selects">
-              <label for="xQuantSelect">X-axis:
+          </div>
+
+          <div class="axis-box">
+            <div class="axis-row">
+              <div class="axis-control">
+                <label for="xQuantSelect"><strong>X-axis:</strong></label>
                 <select id="xQuantSelect">
-                  <option value="age">Age</option>
                   <option value="height">Height</option>
                   <option value="weight">Weight</option>
                   <option value="bmi">BMI</option>
                   <option value="asa">ASA Score</option>
                   <option value="intraop_crystalloid">Intraop Crystalloid</option>
-                  <option value="intraop_rocu">Intraop Rocuronium</option>    
-                  <option value="intraop_uo">Intraop Urine Output</option>    
-                  <option value="preop_alb">Preoperative albumin</option>  
+                  <option value="intraop_rocu">Intraop Rocuronium</option>
+                  <option value="intraop_uo">Intraop Urine Output</option>
+                  <option value="preop_alb">Preoperative albumin</option>
                 </select>
-              </label>
-    
-              <label for="ySelect">Y-axis:
+              </div>
+          
+              <div class="axis-control">
+                <label for="ySelect"><strong>Y-axis:</strong></label>
                 <select id="ySelect">
                   <option value="surgery_time">Surgery Time</option>
                   <option value="icu_days">ICU Days</option>
                 </select>
-              </label>
+              </div>
             </div>
           </div>
+          
         </section>
     
         <div class="toggle-container">
@@ -295,6 +307,7 @@
     
         <svg id="chart" width="700" height="400"></svg>
       </div>
+    </div>
     </section>
     
     <div id="scrolly-conclusion">

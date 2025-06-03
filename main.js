@@ -99,15 +99,24 @@ function updateChart() {
     .attr("class", "chart-group")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-  let filtered = data.filter(d => {
-    const yVal = +d[yVar];
-    if (isNaN(yVal) || d[yVar] === "" || d[xVar] === "") return false;
-    if (yVar === "icu_days" && yVal > 50) return false;
-    if (showEmergencyOnly && d.emop !== 1 && d.emop !== "1") return false;
-    if ((d.sex === "M" && !showMale) || (d.sex === "F" && !showFemale)) return false;
-    if (selectedOptype && selectedOptype !== "All" && d.optype !== selectedOptype) return false;
-    return true;
-  });
+    let filtered = data.filter(d => {
+      const yVal = +d[yVar];
+      if (isNaN(yVal) || d[yVar] === "" || d[xVar] === "") return false;
+      if (yVar === "icu_days" && yVal > 50) return false;
+    
+      // ✅ New age slider filtering
+      const minAge = parseInt(ageMinInput?.value || 0);
+      const maxAge = parseInt(ageMaxInput?.value || 100);
+      if (d.age < minAge || d.age > maxAge) return false;
+      
+    
+      if (showEmergencyOnly && d.emop !== 1 && d.emop !== "1") return false;
+      if ((d.sex === "M" && !showMale) || (d.sex === "F" && !showFemale)) return false;
+      if (selectedOptype && selectedOptype !== "All" && d.optype !== selectedOptype) return false;
+    
+      return true;
+    });
+    
 
   // Summary text
   const avgY = d3.mean(filtered, d => d[yVar]);
@@ -1245,3 +1254,27 @@ function formatSecondsToMMSS(sec) {
     .padStart(2, '0');
   return `${m}:${s}`;
 }
+
+const ageMinInput = document.getElementById('ageMin');
+const ageMaxInput = document.getElementById('ageMax');
+const ageValueSpan = document.getElementById('ageValue');
+
+function updateAgeDisplay() {
+  const minAge = parseInt(ageMinInput.value);
+  const maxAge = parseInt(ageMaxInput.value);
+
+  // Auto-correct overlap
+  if (minAge > maxAge) {
+    if (event.target === ageMinInput) ageMaxInput.value = minAge;
+    else ageMinInput.value = maxAge;
+  }
+
+  ageValueSpan.textContent = `${ageMinInput.value} - ${ageMaxInput.value}`;
+  updateChart(); // Trigger your filtering logic
+}
+
+ageMinInput.addEventListener('input', updateAgeDisplay);
+ageMaxInput.addEventListener('input', updateAgeDisplay);
+
+
+
