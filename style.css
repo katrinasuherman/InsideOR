@@ -812,13 +812,13 @@ body {
 }
   
 #upper-controls {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-top: 20px;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-start; /* push everything to the right */
+  align-items: center;       /* vertically center label + slider */
+  margin-bottom: 1rem;       /* optional spacing under the bar */
+  margin-top: 1rem; 
 }
-  
+
 #case-selector {
   text-align: center;
   margin-top: 2rem;
@@ -846,7 +846,7 @@ body {
 }
   
 #time-slider {
-    width: 900px;
+    width: 1000px;
     height: 10px;  
 }
   
@@ -1641,4 +1641,12 @@ input[type="range"]::-moz-range-track {
 
 .credits-box strong {
   color: #2c3e50;
+}
+
+.slider-label {
+  margin-right: 15px;      /* small gap between text and the slider */
+  font-weight: 600;       /* bold enough to notice */
+  font-size: 2rem;     /* slightly smaller than default h2/h3 */
+  color: #333;            /* dark gray so it’s legible */
+  white-space: nowrap;    /* keep “(move me!)” on one line */
 }

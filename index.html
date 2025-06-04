@@ -34,52 +34,49 @@
       </div>
     </section>
 
-  <!-- PAGE 1: Opening Message -->
-  <section class="hero-section" id="intro-0">
-    <div class="intro-content">
-      <p class="surgery-lead">
-        Everyone undergoing <span class="highlight">surgery</span> wonders what will happen to them.<br>
-        How long will it take? Will I recover?<br>
-        How does my <span class="highlight-blue">experience</span> compare to others?
-      </p>
-    </div>
-  </section>
-  
-
-  <section class="fullscreen-section" id="intro">
-    <div class="intro-content">
-      <p>
-        What happens inside the <span class="highlight-blue">operating room</span>?<br>
-        Select from <span class="highlight-red">20 surgical cases</span> and step into the OR with us.
-      </p>
-      <div id="case-selector">
-        <label for="caseDropdown">Choose a case:</label>
-        <select id="caseDropdown">
-          <option value="" disabled selected>-- Select a case --</option>
-        </select>
-        
-        
+    <!-- PAGE 1: Opening Message -->
+    <section class="hero-section" id="intro-0">
+      <div class="intro-content">
+        <p class="surgery-lead">
+          Everyone undergoing <span class="highlight">surgery</span> wonders what will happen to them.<br>
+          How long will it take? Will I recover?<br>
+          How does my <span class="highlight-blue">experience</span> compare to others?
+        </p>
       </div>
-    </div>
-  </section>
-  
+    </section>
+
+    <!-- CASE SELECTION SECTION -->
+    <section class="fullscreen-section" id="intro">
+      <div class="intro-content">
+        <p>
+          What happens inside the <span class="highlight-blue">operating room</span>?<br>
+          Select from <span class="highlight-red">5 surgical cases</span> and step into the OR with us.
+        </p>
+        <div id="case-selector">
+          <label for="caseDropdown">Choose a case:</label>
+          <select id="caseDropdown">
+            <option value="" disabled selected>-- Select a case --</option>
+          </select>
+        </div>
+      </div>
+    </section>
 
     <!-- CASE EXPLORER SECTION -->
-    <section class="case-explorer scroll-section" id="case-explorer">    
+    <section class="case-explorer scroll-section" id="case-explorer">
       <div class="layout-wrapper">
         <div id="case-and-body">
           <div id="case-section">
             <div id="ekg-monitor">
               <img id="ekg-monitor" src="images/ekg.png" alt="ekg" />
             </div>
-    
+
             <div id="or-container">
               <div class="zoom-area">
                 <img id="or-image" src="images/table-female.png" alt="Patient in OR" />
               </div>
               <div id="tooltip" class="tooltip"></div>
             </div>
-    
+
             <div id="surgeryInfo" class="info-card">
               Surgical Information here.
             </div>
@@ -89,221 +86,207 @@
     </section>
 
     <!-- VITAL CHART + INTERVENTION SECTION -->
-<section class="vitals-section scroll-section" id="vitals-section">
-  <div id="container">
-    <div id="ekg-border">
-      <div id="charts-wrapper">
-
-        <div id="upper-controls">
-          <input type="range" id="time-slider" min="0" max="0" step="1" value="0" />
+    <section class="vitals-section scroll-section" id="vitals-section">
+      <div class="post-op" id="post-op-section">
+        <div class="instruction-wrapper">
+          <h2>Let's monitor the patient's vitals and interventions LIVE inside the OR  </h2>
+          <p class="gif-instruction">Press Play to view the feed, or drag the bar</p>
         </div>
+      <div id="container">
+        <div id="ekg-border">
+          <div id="charts-wrapper">
+            <div id="upper-controls">
+              <span class="slider-label">(move me!)</span>
+              <input type="range" id="time-slider" min="0" max="0" step="1" value="0" />
+            </div>
 
-        <div id="vital-chart"></div>
-        <div id="intervention-chart"></div>
-      </div>
+            <div id="vital-chart"></div>
+            <div id="intervention-chart"></div>
+          </div>
 
-      <div id="sidebar">
-        <button id="play-btn">▶️ Play</button>
-        <button id="pause-btn" disabled>⏸ Pause</button>
-
-        <div id="legend"></div>
-        <div id="live-values"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!--POST-OP-->
-<section class="post-op-section" id="post-op-section">
-  <div class="post-op" id="post-op-section">
-    <div class="instruction-wrapper">
-      <h2>Post-Operative Outcome</h2>
-      <p class="gif-instruction">Click the patient to reveal discharge summary</p>
-    </div>
-    
-    <div class="post-op-container">
-        <div class="gif-column">
-        <img src="images/recovered-female-new.gif" id="postOpGif" alt="Patient in Post-Op" class="clickable-gif" />
-        <div id="outcome-text" class="outcome-text"></div>
-        </div>
-    
-        <div id="dischargeSummary" class="summary-box hidden">
-        </div>
-    </div>
-</section>
-
-<div id="scrolly-transition">
-  <!-- Page 1: One patient's story -->
-  <section class="conclusion-section">
-    <div class="conclusion-box">
-      <p><span class="highlighted">From one case to thousands.</span></p>
-      <p><strong>You've just followed one patient's journey from surgery to discharge.</strong></p>
-      <p class="note">But every patient is different, outcomes vary, and so do their paths to recovery.</p>
-    </div>
-  </section>
-
-  <!-- Page 2: Begin exploring the data -->
-  <!-- <section class="conclusion-section">
-    <div class="conclusion-box">
-      <p class="fade-in delay1">
-        Now let's explore what the data tells us across <span class="highlight-blue">all patients</span>.
-      </p>
-
-      <p class="fade-in delay2">
-        We’ll start by analyzing their <span class="highlight-blue">vital signs</span> and <span class="highlight-blue">interventions</span> in real time,<br>
-        then expand to uncover patterns across <span class="highlight-blue">surgical procedures</span>, <span class="highlight-blue">departments</span>, and <span class="highlight-blue">outcomes</span>.
-      </p>
-
-      <div class="button-row fade-in delay3">
-        <a href="#explanation-heatmap-section" class="btn primary">Explore Time Series →</a>
-        <a href="#patientdata-section" class="btn secondary">Explore Patient Data →</a>
-      </div>
-    </div>
-  </section> -->
-  <section class="conclusion-section" id="timeseries-conclusion">
-    <div class="conclusion-box">
-      <p class="fade-in delay1">
-        Now let's explore what the data tells us across <span class="highlight-blue">all patients</span>.
-      </p>
-      <p class="fade-in delay2">
-        We’ll start by analyzing their <span class=a"highlight-blue">vital signs</span> and <span class="highlight-blue">interventions</span> in real time.
-      </p>
-      <div class="button-row fade-in delay3">
-        <a href="#explanation-heatmap-section" class="btn primary">Explore Time Series →</a>
-      </div>
-    </div>
-  </section>
-  
-</div>
-
-
-<section class="explanation-heatmap-section scroll-section" id="explanation-heatmap-section">
-  <div id="main-container">
-    <div id="explanation">
-      <h2>Understanding the Scatter Plot & Heatmap</h2>
-
-      <p>The data visualized here come from two key domains in the operating room:</p>
-      <ul>
-        <li><strong>Patient Vitals:</strong> Physiologic signals continuously measured from the patient: heart rate, blood pressure, oxygen saturation, and CO₂ levels.</li>
-        <li><strong>Ventilator & Infusion Settings:</strong> Clinician-controlled parameters such as inspired oxygen (FiO₂), PEEP, anesthetic concentration (MAC), and tidal volume.</li>
-      </ul>
-
-      <p>These two domains are naturally interrelated. Clinicians respond to patient vitals by adjusting settings, and interventions may directly affect physiologic signals.</p>
-
-      <p>A quick guide to what each selected parameter represents:</p>
-      <ul>
-        <li><strong>Arterial BP:</strong> Mean arterial pressure (mmHg)</li>
-        <li><strong>Diastolic BP:</strong> Lowest arterial pressure (mmHg)</li>
-        <li><strong>End-Tidal CO₂:</strong> Exhaled CO₂ at the end of a breath (mmHg)</li>
-        <li><strong>Heart Rate:</strong> Heartbeats per minute (bpm)</li>
-        <li><strong>NIBP Mean BP:</strong> Non-invasive mean blood pressure (mmHg)</li>
-        <li><strong>Oxygen Saturation:</strong> Percent of hemoglobin saturated with oxygen (SpO₂)</li>
-        <li><strong>Pleth HR:</strong> Heart rate derived from plethysmograph waveform</li>
-        <li><strong>ETCO2:</strong> End-tidal carbon dioxide sensor reading (mmHg)</li>
-        <li><strong>FiO₂ Setting:</strong> Fraction of inspired oxygen delivered to patient</li>
-        <li><strong>Insp Time Setting:</strong> Duration of inhalation phase (sec)</li>
-        <li><strong>MAC:</strong> Minimum alveolar concentration of anesthetic gas</li>
-        <li><strong>Minute Ventilation:</strong> Volume of air exhaled per minute (L/min)</li>
-        <li><strong>PEEP:</strong> Positive end-expiratory pressure (cmH₂O)</li>
-        <li><strong>Respiratory Rate:</strong> Breaths per minute</li>
-        <li><strong>Stroke Volume:</strong> Volume of blood pumped per heartbeat (mL)</li>
-        <li><strong>Systolic BP:</strong> Peak pressure during heartbeat (mmHg)</li>
-        <li><strong>Tidal Volume:</strong> Air moved per breath (mL)</li>
-      </ul>
-
-      <h3>Heatmap Summary</h3>
-
-      <p>The <strong>Global Correlation Heatmap</strong> below shows how pairs of these parameters tend to behave across all surgical cases. Each square displays the average Pearson correlation (r) between two signals:</p>
-      <ul>
-        <li><strong>Deep red:</strong> Strong positive correlation (e.g., both rise together)</li>
-        <li><strong>Deep blue:</strong> Strong negative correlation (e.g., one rises, the other falls)</li>
-        <li><strong>White or pale tones:</strong> Little or no consistent relationship</li>
-      </ul>
-
-      <p><strong>Notable Observations:</strong></p>
-      <ul>
-        <li><strong>Arterial BP and Diastolic BP</strong>: These are two ways of measuring blood pressure, so it makes sense they rise and fall together.</li>
-        <li><strong>End-Tidal CO₂ and ETCO₂</strong>: These both track the amount of carbon dioxide a patient breathes out and closely match.</li>
-      </ul>
-
-      <p>On the other hand, several parameter pairs show little or no correlation, such as:</p>
-      <ul>
-        <li><strong>Pleth HR and FiO₂ Setting</strong> and <strong>MAC and Stroke Volume</strong></li>
-      </ul>
-
-      <p><strong>Overall Summary:</strong> This time-series dataset offers a view into both patient physiology and clinician behavior in the operating room. Together, these time-synchronized data streams form a comprehensive record of intraoperative care.</p>
-    </div>
-
-    <div id="visualization">
-      <div id="controls">
-        <div class="control-block">
-          <label for="param-x">X‐axis:</label>
-          <select id="param-x"></select>
-        </div>
-        <div class="control-block">
-          <label for="param-y">Y‐axis:</label>
-          <select id="param-y"></select>
+          <div id="sidebar">
+            <button id="play-btn">▶️ Play</button>
+            <button id="pause-btn" disabled>⏸ Pause</button>
+            <button id="faster-btn">⏩ Faster</button>
+             <button id="reset-btn">🔄 Reset</button>
+            <div id="legend"></div>
+            <div id="live-values"></div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div id="chart-container">
-        <svg id="scatterplot"></svg>
-      </div>
+    <!-- POST-OP SECTION -->
+    <section class="post-op-section" id="post-op-section">
+      <div class="post-op" id="post-op-section">
+        <div class="instruction-wrapper">
+          <h2>Post-Operative Outcome</h2>
+          <p class="gif-instruction">Click the patient to reveal discharge summary</p>
+        </div>
 
-      <div id="heatmap-container">
-        <h3>Global Correlation Heatmap (All Cases)</h3>
-        <div id="heatmap-wrapper">
-          <svg id="heatmap" width="800" height="800"></svg>
+        <div class="post-op-container">
+          <div class="gif-column">
+            <img src="images/recovered-female-new.gif" id="postOpGif" alt="Patient in Post-Op" class="clickable-gif" />
+            <div id="outcome-text" class="outcome-text"></div>
+          </div>
+
+          <div id="dischargeSummary" class="summary-box hidden"></div>
         </div>
       </div>
+    </section>
 
-      <div id="tooltip-heatmap"
-        style="position: absolute; padding: 6px 10px; background: rgba(0,0,0,0.75); color: #fff; font-size: 13px; border-radius: 4px; pointer-events: none; visibility: hidden; z-index: 10;">
-      </div>
-    </div>
-  </div>
-</section>
+    <div id="scrolly-transition">
+      <!-- CONCLUSION SLIDE 1 -->
+      <section class="conclusion-section">
+        <div class="conclusion-box">
+          <p><span class="highlighted">From one case to thousands.</span></p>
+          <p><strong>You've just followed one patient's journey from surgery to discharge.</strong></p>
+          <p class="note">But every patient is different, outcomes vary, and so do their paths to recovery.</p>
+        </div>
+      </section>
 
-<section class="conclusion-section" id="patientdata-intro">
-  <div class="conclusion-box">
-    <p class="fade-in delay1">
-      But remember, <strong>every patient is different</strong>.
-    </p>
-    <p class="fade-in delay2">
-      Now let’s explore how <span class="highlight-blue">different factors</span>
-      impact outcomes like surgery duration and ICU stay.
-    </p>
-    <div class="button-row fade-in delay3">
-      <a href="#patientdata-section" class="btn primary">Explore Patient Data →</a>
-    </div>
-  </div>
-</section>
-
-
-
-    <!-- SCATTER PLOT EXPLORER SECTION -->
-    <section id="patientdata-section" class="scatter-section">
-    <div class="scatter-text">
-      <section class="instructions">
-        <h3>🧭 How to Use the Surgical Outcome Explorer</h3>
-        <ol>
-          <li><strong>Filter by Operation Type:</strong> Click a pill to filter surgeries (e.g., Stomach, Vascular). Select <em>All</em> to reset.</li>
-          <li><strong>Set Patient Criteria:</strong> Use the <strong>Age</strong> and <strong>BMI</strong> sliders to narrow the patient group.</li>
-          <li><strong>Choose Patient Sex:</strong> Toggle ♂️ / ♀️ buttons to include or exclude male/female patients.</li>
-          <li><strong>Choose What to Compare:</strong> Use the X-axis and Y-axis dropdowns to explore relationships (e.g., ASA vs. Surgery Time).</li>
-          <li><strong>Interpret the Results:</strong> Watch how patterns shift based on your filters and check the summary stats below.</li>
-        </ol>
+      <!-- CONCLUSION SLIDE 2 -->
+      <section class="conclusion-section" id="timeseries-conclusion">
+        <div class="conclusion-box">
+          <p class="fade-in delay1">
+            Now let's explore what the data tells us across <span class="highlight-blue">all patients</span>.
+          </p>
+          <p class="fade-in delay2">
+            We’ll start by analyzing their <span class="highlight-blue">vital signs</span> and <span class="highlight-blue">interventions</span> in real time.
+          </p>
+          <div class="button-row fade-in delay3">
+            <a href="#explanation-heatmap-section" class="btn primary">Explore Time Series →</a>
+          </div>
+        </div>
       </section>
     </div>
 
-    
+    <!-- EXPLANATION & HEATMAP SECTION -->
+    <section class="explanation-heatmap-section scroll-section" id="explanation-heatmap-section">
+      <div id="main-container">
+        <div id="explanation">
+          <h2>Understanding the Scatter Plot & Heatmap</h2>
+
+          <p>The data visualized here come from two key domains in the operating room:</p>
+          <ul>
+            <li><strong>Patient Vitals:</strong> Physiologic signals continuously measured from the patient: heart rate, blood pressure, oxygen saturation, and CO₂ levels.</li>
+            <li><strong>Ventilator & Infusion Settings:</strong> Clinician-controlled parameters such as inspired oxygen (FiO₂), PEEP, anesthetic concentration (MAC), and tidal volume.</li>
+          </ul>
+
+          <p>These two domains are naturally interrelated. Clinicians respond to patient vitals by adjusting settings, and interventions may directly affect physiologic signals.</p>
+
+          <p>A quick guide to what each selected parameter represents:</p>
+          <h3>Patient Vitals</h3>
+          <ul>
+            <li><strong>Arterial BP:</strong> Mean arterial pressure (mmHg)</li>
+            <li><strong>Diastolic BP:</strong> Lowest arterial pressure (mmHg)</li>
+            <li><strong>End-Tidal CO₂:</strong> Exhaled CO₂ at the end of a breath (mmHg)</li>
+            <li><strong>Heart Rate:</strong> Heartbeats per minute (bpm)</li>
+            <li><strong>NIBP Mean BP:</strong> Non-invasive mean blood pressure (mmHg)</li>
+            <li><strong>Oxygen Saturation:</strong> Percent of hemoglobin saturated with oxygen (SpO₂)</li>
+            <li><strong>Pleth HR:</strong> Heart rate derived from plethysmograph waveform</li>
+            <li><strong>Systolic BP:</strong> Peak pressure during heartbeat (mmHg)</li>
+          </ul>
+          <h3>Ventilator &amp; Infusion Settings</h3>
+          <ul>
+            <li><strong>ETCO2:</strong> End-tidal carbon dioxide sensor reading (mmHg)</li>
+            <li><strong>FiO₂ Setting:</strong> Fraction of inspired oxygen delivered to patient</li>
+            <li><strong>Insp Time Setting:</strong> Duration of inhalation phase (sec)</li>
+            <li><strong>MAC:</strong> Minimum alveolar concentration of anesthetic gas</li>
+            <li><strong>Minute Ventilation:</strong> Volume of air exhaled per minute (L/min)</li>
+            <li><strong>PEEP:</strong> Positive end-expiratory pressure (cmH₂O)</li>
+            <li><strong>Tidal Volume:</strong> Air moved per breath (mL)</li>
+          </ul>
+
+          <h3>Heatmap Summary</h3>
+
+          <p>The <strong>Global Correlation Heatmap</strong> below shows how pairs of these parameters tend to behave across all surgical cases. Each square displays the average Pearson correlation (r) between two signals:</p>
+          <ul>
+            <li><strong>Deep red:</strong> Strong positive correlation (e.g., both rise together)</li>
+            <li><strong>Deep blue:</strong> Strong negative correlation (e.g., one rises, the other falls)</li>
+            <li><strong>White or pale tones:</strong> Little or no consistent relationship</li>
+          </ul>
+
+          <p><strong>Notable Observations:</strong></p>
+          <ul>
+            <li><strong>Arterial BP and Diastolic BP</strong>: These are two ways of measuring blood pressure, so it makes sense they rise and fall together.</li>
+            <li><strong>End-Tidal CO₂ and ETCO₂</strong>: These both track the amount of carbon dioxide a patient breathes out and closely match.</li>
+          </ul>
+
+          <p>On the other hand, several parameter pairs show little or no correlation, such as:</p>
+          <ul>
+            <li><strong>Pleth HR and FiO₂ Setting</strong> and <strong>MAC and Stroke Volume</strong></li>
+          </ul>
+
+          <p><strong>Overall Summary:</strong> This time-series dataset offers a view into both patient physiology and clinician behavior in the operating room. Together, these time-synchronized data streams form a comprehensive record of intraoperative care.</p>
+        </div>
+
+        <div id="visualization">
+          <div id="controls">
+            <div class="control-block">
+              <label for="param-x">X‐axis:</label>
+              <select id="param-x"></select>
+            </div>
+            <div class="control-block">
+              <label for="param-y">Y‐axis:</label>
+              <select id="param-y"></select>
+            </div>
+          </div>
+
+          <div id="chart-container">
+            <svg id="scatterplot"></svg>
+          </div>
+          <h1>                  Click on a heatmap square to view the trend above!</h1>
+          <div id="heatmap-container">
+            <h3>Global Correlation Heatmap (All Cases)</h3>
+            <div id="heatmap-wrapper">
+              <svg id="heatmap" width="800" height="800"></svg>
+            </div>
+          </div>
+
+          <div id="tooltip-heatmap"
+            style="position: absolute; padding: 6px 10px; background: rgba(0,0,0,0.75); color: #fff; font-size: 13px; border-radius: 4px; pointer-events: none; visibility: hidden; z-index: 10;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PATIENT DATA INTRO & SCATTER SECTION -->
+    <section class="conclusion-section" id="patientdata-intro">
+      <div class="conclusion-box">
+        <p class="fade-in delay1">
+          But remember, <strong>every patient is different</strong>.
+        </p>
+        <p class="fade-in delay2">
+          Now let’s explore how <span class="highlight-blue">different factors</span>
+          impact outcomes like surgery duration and ICU stay.
+        </p>
+        <div class="button-row fade-in delay3">
+          <a href="#patientdata-section" class="btn primary">Explore Patient Data →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="patientdata-section" class="scatter-section">
+      <div class="scatter-text">
+        <section class="instructions">
+          <h3>🧭 How to Use the Surgical Outcome Explorer</h3>
+          <ol>
+            <li><strong>Filter by Operation Type:</strong> Click a pill to filter surgeries (e.g., Stomach, Vascular). Select <em>All</em> to reset.</li>
+            <li><strong>Set Patient Criteria:</strong> Use the <strong>Age</strong> and <strong>BMI</strong> sliders to narrow the patient group.</li>
+            <li><strong>Choose Patient Sex:</strong> Toggle ♂️ / ♀️ buttons to include or exclude male/female patients.</li>
+            <li><strong>Choose What to Compare:</strong> Use the X-axis and Y-axis dropdowns to explore relationships (e.g., ASA vs. Surgery Time).</li>
+            <li><strong>Interpret the Results:</strong> Watch how patterns shift based on your filters and check the summary stats below.</li>
+          </ol>
+        </section>
+      </div>
+
       <!-- RIGHT COLUMN: FIXED VISUALIZATION -->
       <div class="vis-panel">
         <section id="controls">
           <div class="controls-wrapper">
-          <!-- <h3>Operation types:</h1> -->
             <div class="filter-card">
-              <h3>Operation Types:</h1>
+              <h3>Operation Types:</h3>
               <div class="optype-filter">
                 <label class="optype-pill"><input type="radio" name="optype" value="All" checked /> All</label>
                 <label class="optype-pill"><input type="radio" name="optype" value="Colorectal" /> Colorectal</label>
@@ -319,10 +302,7 @@
                 <label class="optype-pill"><input type="radio" name="optype" value="Others" /> Others</label>
               </div>
             </div>
-            
 
-
-          <!-- <div class="controls-wrapper"> -->
             <div class="filter-card">
               <!-- AGE SLIDER -->
               <div class="age-slider">
@@ -330,14 +310,14 @@
                 <input type="range" id="ageMin" min="0" max="100" value="0" step="1" />
                 <input type="range" id="ageMax" min="0" max="100" value="100" step="1" />
               </div>
-            
+
               <!-- BMI SLIDER -->
               <div class="bmi-slider">
                 <label for="bmiRange">BMI Range: <span id="bmiValue">10 - 50</span></label>
                 <input type="range" id="bmiMin" min="10" max="50" value="10" step="1" />
                 <input type="range" id="bmiMax" min="10" max="50" value="50" step="1" />
               </div>
-            
+
               <!-- SEX TOGGLE -->
               <div class="sex-toggle">
                 <span>Sex:</span>
@@ -351,33 +331,32 @@
                 </label>
               </div>
             </div>
-            
 
-          <div class="axis-box">
-            <div class="axis-row">
-              <div class="axis-control">
-                <label for="xQuantSelect"><strong>X-axis:</strong></label>
-                <select id="xQuantSelect">
-                  <option value="asa">ASA Score</option>
-                  <option value="intraop_crystalloid">Intraop Crystalloid</option>
-                  <option value="intraop_rocu">Intraop Rocuronium</option>
-                  <option value="intraop_uo">Intraop Urine Output</option>
-                  <option value="preop_alb">Preoperative albumin</option>
-                </select>
-              </div>
-          
-              <div class="axis-control">
-                <label for="ySelect"><strong>Y-axis:</strong></label>
-                <select id="ySelect">
-                  <option value="surgery_time">Surgery Time</option>
-                  <option value="icu_days">ICU Days</option>
-                </select>
+            <div class="axis-box">
+              <div class="axis-row">
+                <div class="axis-control">
+                  <label for="xQuantSelect"><strong>X-axis:</strong></label>
+                  <select id="xQuantSelect">
+                    <option value="asa">ASA Score</option>
+                    <option value="intraop_crystalloid">Intraop Crystalloid</option>
+                    <option value="intraop_rocu">Intraop Rocuronium</option>
+                    <option value="intraop_uo">Intraop Urine Output</option>
+                    <option value="preop_alb">Preoperative albumin</option>
+                  </select>
+                </div>
+
+                <div class="axis-control">
+                  <label for="ySelect"><strong>Y-axis:</strong></label>
+                  <select id="ySelect">
+                    <option value="surgery_time">Surgery Time</option>
+                    <option value="icu_days">ICU Days</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
-          
         </section>
-    
+
         <div class="toggle-container">
           <label class="switch">
             <input type="checkbox" id="emergencyToggle">
@@ -385,58 +364,50 @@
           </label>
           <label for="emergencyToggle">Show only emergency operations</label>
         </div>
-    
+
         <section id="stats">
           <strong id="summary">No data loaded.</strong>
         </section>
-    
+
         <svg id="chart" width="700" height="400"></svg>
       </div>
-    </div>
     </section>
-    
+
     <div id="scrolly-conclusion">
       <section class="conclusion-section scroll-section">
         <p><span class="highlighted">However, data brings clarity.</span></p>
       </section>
-    
+
       <section class="conclusion-section scroll-section">
         <div class="conclusion-box">
           <p class="fade-in"><strong>By analyzing thousands of cases, we see trends emerge.</strong></p>
-    
           <p class="fade-in delay1">
-            Surgery time increases with <span class="highlight-blue">Intraoperative Crystalloid</span>, 
-            <span class="highlight-blue">Rocuronium</span>, and 
-            <span class="highlight-blue">Urine Output</span>, and tends to be 
+            Surgery time increases with <span class="highlight-blue">Intraoperative Crystalloid</span>,
+            <span class="highlight-blue">Rocuronium</span>, and
+            <span class="highlight-blue">Urine Output</span>, and tends to be
             <span class="highlight-blue">longer for male patients</span>.
           </p>
-    
           <p class="fade-in delay2">
-            ICU stays are longer when <span class="highlight-red">ASA scores</span> are high and 
+            ICU stays are longer when <span class="highlight-red">ASA scores</span> are high and
             <span class="highlight-red">Albumin</span> is low.
           </p>
-    
           <p class="fade-in delay3">
-            Vitals show strong physiological relationships. 
-            <span class="highlight-blue">Arterial BP</span> closely tracks with 
-            <span class="highlight-blue">Diastolic BP</span>, and 
-            <span class="highlight-blue">End-Tidal CO₂</span> correlates tightly with 
+            Vitals show strong physiological relationships.
+            <span class="highlight-blue">Arterial BP</span> closely tracks with
+            <span class="highlight-blue">Diastolic BP</span>, and
+            <span class="highlight-blue">End-Tidal CO₂</span> correlates tightly with
             <span class="highlight-blue">ETCO₂</span>.
           </p>
         </div>
       </section>
     </div>
 
+    <!-- CREDITS -->
     <section class="credits-section scroll-section" id="credits">
       <div class="credits-box">
         <p><strong>Made by</strong><br>Katrina Suherman, Rheka Narwastu, and Viki Shi</p>
       </div>
     </section>
-    
-    
   </main>
-  
 </body>
-
-
 </html>
