@@ -251,38 +251,9 @@
       </div>
     </section>
 
-    <!-- PATIENT DATA INTRO & SCATTER SECTION -->
-    <section class="conclusion-section" id="patientdata-intro">
-      <div class="conclusion-box">
-        <p class="fade-in delay1">
-          But remember, <strong>every patient is different</strong>.
-        </p>
-        <p class="fade-in delay2">
-          Now let’s explore how <span class="highlight-blue">different factors</span>
-          impact outcomes like surgery duration and ICU stay.
-        </p>
-        <div class="button-row fade-in delay3">
-          <a href="#patientdata-section" class="btn primary">Explore Patient Data →</a>
-        </div>
-      </div>
-    </section>
-
     <section id="patientdata-section" class="scatter-section">
-      <div class="scatter-text">
-        <section class="instructions">
-          <h3>🧭 How to Use the Surgical Outcome Explorer</h3>
-          <ol>
-            <li><strong>Filter by Operation Type:</strong> Click a pill to filter surgeries (e.g., Stomach, Vascular). Select <em>All</em> to reset.</li>
-            <li><strong>Set Patient Criteria:</strong> Use the <strong>Age</strong> and <strong>BMI</strong> sliders to narrow the patient group.</li>
-            <li><strong>Choose Patient Sex:</strong> Toggle ♂️ / ♀️ buttons to include or exclude male/female patients.</li>
-            <li><strong>Choose What to Compare:</strong> Use the X-axis and Y-axis dropdowns to explore relationships (e.g., ASA vs. Surgery Time).</li>
-            <li><strong>Interpret the Results:</strong> Watch how patterns shift based on your filters and check the summary stats below.</li>
-          </ol>
-        </section>
-      </div>
-
-      <!-- RIGHT COLUMN: FIXED VISUALIZATION -->
-      <div class="vis-panel">
+      <!-- LEFT COLUMN: FILTERS -->
+      <div class="filter-panel">
         <section id="controls">
           <div class="controls-wrapper">
             <div class="filter-card">
@@ -302,23 +273,20 @@
                 <label class="optype-pill"><input type="radio" name="optype" value="Others" /> Others</label>
               </div>
             </div>
-
+    
             <div class="filter-card">
-              <!-- AGE SLIDER -->
               <div class="age-slider">
                 <label for="ageRange">Age Range: <span id="ageValue">0 - 100</span></label>
                 <input type="range" id="ageMin" min="0" max="100" value="0" step="1" />
                 <input type="range" id="ageMax" min="0" max="100" value="100" step="1" />
               </div>
-
-              <!-- BMI SLIDER -->
+    
               <div class="bmi-slider">
                 <label for="bmiRange">BMI Range: <span id="bmiValue">10 - 50</span></label>
                 <input type="range" id="bmiMin" min="10" max="50" value="10" step="1" />
                 <input type="range" id="bmiMax" min="10" max="50" value="50" step="1" />
               </div>
-
-              <!-- SEX TOGGLE -->
+    
               <div class="sex-toggle">
                 <span>Sex:</span>
                 <label class="icon-toggle">
@@ -331,47 +299,75 @@
                 </label>
               </div>
             </div>
-
+    
             <div class="axis-box">
               <div class="axis-row">
+                <!-- X-axis Control -->
                 <div class="axis-control">
-                  <label for="xQuantSelect"><strong>X-axis:</strong></label>
+                  <label for="xQuantSelect">
+                    <strong>X-axis:</strong>
+                    <span id="xInfo" title="View glossary">🛈</span>
+                  </label>
                   <select id="xQuantSelect">
                     <option value="asa">ASA Score</option>
-                    <option value="intraop_crystalloid">Intraop Crystalloid</option>
-                    <option value="intraop_rocu">Intraop Rocuronium</option>
-                    <option value="intraop_uo">Intraop Urine Output</option>
-                    <option value="preop_alb">Preoperative albumin</option>
+                    <option value="intraop_crystalloid">Intraoperative Crystalloid</option>
+                    <option value="intraop_rocu">Intraoperative Rocuronium</option>
+                    <option value="intraop_uo">Intraoperative Urine Output</option>
+                    <option value="preop_alb">Preoperative Albumin</option>
                   </select>
+                  <p id="x-description" class="param-desc"></p>
                 </div>
-
+            
+                <!-- Y-axis Control -->
                 <div class="axis-control">
-                  <label for="ySelect"><strong>Y-axis:</strong></label>
+                  <label for="ySelect">
+                    <strong>Y-axis:</strong>
+                    <span id="yInfo" title="View glossary">🛈</span>
+                  </label>
                   <select id="ySelect">
                     <option value="surgery_time">Surgery Time</option>
                     <option value="icu_days">ICU Days</option>
                   </select>
+                  <p id="y-description" class="param-desc"></p>
                 </div>
               </div>
             </div>
+            
           </div>
         </section>
-
-        <div class="toggle-container">
-          <label class="switch">
-            <input type="checkbox" id="emergencyToggle">
-            <span class="slider"></span>
-          </label>
-          <label for="emergencyToggle">Show only emergency operations</label>
-        </div>
-
-        <section id="stats">
-          <strong id="summary">No data loaded.</strong>
+      </div>
+    
+      <!-- RIGHT COLUMN: INSTRUCTIONS AND CHART -->
+      <div class="scatter-right-panel">
+        <section class="instructions">
+          <h3>How to Use the Surgical Outcome Explorer</h3>
+          <ol>
+            <li><strong>Filter by Operation Type:</strong> Click a pill to filter surgeries (e.g., Stomach, Vascular). Select <em>All</em> to reset.</li>
+            <li><strong>Set Patient Criteria:</strong> Use the <strong>Age</strong> and <strong>BMI</strong> sliders to narrow the patient group.</li>
+            <li><strong>Choose Patient Sex:</strong> Toggle ♂️ / ♀️ buttons to include or exclude male/female patients.</li>
+            <li><strong>Choose What to Compare:</strong> Use the X-axis and Y-axis dropdowns to explore relationships (e.g., ASA vs. Surgery Time).</li>
+            <li><strong>Interpret the Results:</strong> Watch how patterns shift based on your filters and check the summary stats below.</li>
+          </ol>
         </section>
-
-        <svg id="chart" width="700" height="400"></svg>
+    
+        <div class="vis-panel">
+          <div class="toggle-container">
+            <label class="switch">
+              <input type="checkbox" id="emergencyToggle">
+              <span class="slider"></span>
+            </label>
+            <label for="emergencyToggle">Show only emergency operations</label>
+          </div>
+    
+          <section id="stats">
+            <strong id="summary">No data loaded.</strong>
+          </section>
+    
+          <svg id="chart" width="800" height="450"></svg>
+        </div>
       </div>
     </section>
+    
 
     <div id="scrolly-conclusion">
       <section class="conclusion-section scroll-section">

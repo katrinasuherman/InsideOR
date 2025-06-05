@@ -81,13 +81,12 @@ function updateChart() {
     const yVal = +d[yVar];
     if (isNaN(yVal) || d[yVar] === "" || d[xVar] === "") return false;
     if (yVar === "icu_days" && yVal > 50) return false;
-
-    // Age slider filtering
+  
     const minAge = parseInt(ageMinInput?.value || 0);
     const maxAge = parseInt(ageMaxInput?.value || 100);
     if (d.age < minAge || d.age > maxAge) return false;
-
-    // BMI slider filtering
+    
+  
     const minBmi = parseFloat(document.getElementById('bmiMin').value || 10);
     const maxBmi = parseFloat(document.getElementById('bmiMax').value || 50);
     if (d.bmi < minBmi || d.bmi > maxBmi) return false;
@@ -95,13 +94,13 @@ function updateChart() {
     if (showEmergencyOnly && d.emop !== 1 && d.emop !== "1") return false;
     if ((d.sex === "M" && !showMale) || (d.sex === "F" && !showFemale)) return false;
     if (selectedOptype && selectedOptype !== "All" && d.optype !== selectedOptype) return false;
-
+  
     return true;
   });
+    
 
-  // Summary text
   const avgY = d3.mean(filtered, d => d[yVar]);
-  const summaryText = (filtered.length && avgY !== undefined)
+  const summaryText = filtered.length && avgY !== undefined
     ? `${filtered.length} patients | Avg ${yVar.replace('_', ' ')}: ${avgY.toFixed(1)}`
     : `No matching data.`;
   d3.select("#summary").text(summaryText);
@@ -114,11 +113,10 @@ function updateChart() {
     .domain([0, d3.max(filtered, d => +d[yVar])]).nice()
     .range([innerHeight, 0]);
 
-  // Draw axes
   chart.selectAll(".x-axis")
     .data([null])
     .join("g")
-    .attr("class", "x‐axis")
+    .attr("class", "x-axis")
     .attr("transform", `translate(0,${innerHeight})`)
     .transition().duration(1000)
     .call(d3.axisBottom(x));
@@ -126,35 +124,33 @@ function updateChart() {
   chart.selectAll(".y-axis")
     .data([null])
     .join("g")
-    .attr("class", "y‐axis")
+    .attr("class", "y-axis")
     .transition().duration(1000)
     .call(d3.axisLeft(y));
 
-  // Axis labels
   chart.selectAll(".x-label")
     .data([null])
     .join("text")
-      .attr("class", "x-label")
-      .attr("x", innerWidth / 2)
-      .attr("y", innerHeight + 45)
-      .attr("text-anchor", "middle")
-      .attr("font-size", "14px")
-      .text(xVar.replaceAll('_', ' '));
+    .attr("class", "x-label")
+    .attr("x", innerWidth / 2)
+    .attr("y", innerHeight + 45)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "14px")
+    .text(xVar.replaceAll('_', ' '));
 
   chart.selectAll(".y-label")
     .data([null])
     .join("text")
-      .attr("class", "y-label")
-      .attr("transform", "rotate(-90)")
-      .attr("x", -innerHeight / 2)
-      .attr("y", -45)
-      .attr("text-anchor", "middle")
-      .attr("font-size", "14px")
-      .text(yVar.replaceAll('_', ' '));
+    .attr("class", "y-label")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -innerHeight / 2)
+    .attr("y", -45)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "14px")
+    .text(yVar.replaceAll('_', ' '));
 
-  // Bind data to circles
   const circles = chart.selectAll("circle")
-    .data(filtered, d => d.caseid);
+    .data(filtered, d => d.caseid); // caseid must be unique and stable
 
   circles.join(
     enter => enter.append("circle")
@@ -1228,3 +1224,41 @@ d3.selectAll('#bmiMin, #bmiMax').on('input', () => {
   d3.select('#bmiValue').text(`${min} - ${max}`);
   updateChart();
 });
+
+const glossary = {
+  asa: "A classification from 1 (healthy) to 5 (critical) to describe physical status before surgery.",
+  intraop_crystalloid: "Volume of IV fluids like saline given during surgery.",
+  intraop_rocu: "Amount of rocuronium, a muscle relaxant used during anesthesia.",
+  intraop_uo: "Total urine output during surgery — indicates kidney function.",
+  preop_alb: "Albumin level before surgery — reflects nutritional and health status.",
+  surgery_time: "Total duration of the surgical procedure in minutes.",
+  icu_days: "Number of days the patient stayed in the Intensive Care Unit."
+};
+
+function updateAxisDescription(selectId, descId) {
+  const val = document.getElementById(selectId).value;
+  document.getElementById(descId).textContent = glossary[val] || '';
+}
+
+document.getElementById('xQuantSelect').addEventListener('change', () => {
+  updateAxisDescription('xQuantSelect', 'x-description');
+});
+document.getElementById('ySelect').addEventListener('change', () => {
+  updateAxisDescription('ySelect', 'y-description');
+});
+
+// Info icon glossary alert
+document.getElementById('xInfo').addEventListener('click', showGlossary);
+document.getElementById('yInfo').addEventListener('click', showGlossary);
+
+function showGlossary() {
+  let text = '📘 Variable Glossary:\n\n';
+  for (const [key, desc] of Object.entries(glossary)) {
+    text += `• ${key.replaceAll('_', ' ')}: ${desc}\n\n`;
+  }
+  alert(text);
+}
+
+// Trigger initial description on load
+updateAxisDescription('xQuantSelect', 'x-description');
+updateAxisDescription('ySelect', 'y-description');

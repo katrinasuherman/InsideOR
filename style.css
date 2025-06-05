@@ -34,10 +34,12 @@ body {
     /* gap: 1.5rem; */
     align-items: flex-end;
     margin-bottom: 2rem;
+    justify-content: center;
   }
   
   #controls label {
     font-weight: 600;
+    font-size: 14px;
     display: block;
     margin-bottom: 0.3rem;
   }
@@ -174,15 +176,14 @@ body {
   }
 
   .filter-card {
-    background-color: #f8f8f8;          /* Match axis-box background */
-    padding: 1rem;                      /* Match internal spacing */
-    border-radius: 8px;                 /* Rounded corners */
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);  /* Match axis-box shadow */
-    margin-bottom: 1rem;
+    background-color: #f8f8f8;    
+    padding: 1rem;                   
+    border-radius: 8px;                
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1); 
   
-    display: flex;                      /* Flexible layout */
-    flex-wrap: wrap;                    /* Allow wrapping */
-    gap: 1rem;                          /* Consistent spacing */
+    display: flex;         
+    flex-wrap: wrap;        
+    gap: 1rem;                
   }
   
 
@@ -296,16 +297,15 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    padding: 1rem 0;
     margin-top: 0%;
   }
   
   .optype-pill {
     display: inline-block;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.75rem;
     border-radius: 999px;
     border: 2px solid #ccc;
-    font-size: 0.9rem;
+    font-size: 0.5rem;
     cursor: pointer;
     transition: 0.2s ease;
     user-select: none;
@@ -415,34 +415,28 @@ body {
     box-sizing: border-box;
   }
   
-  
-  .scatter-text {
-    flex: 0 0 35%; /* fixed width column */
-    padding: 2rem;
-    overflow-y: scroll;
+  /* LEFT COLUMN: FILTERS */
+  .filter-panel {
+    flex: 0 0 35%;
+    max-width: 500px;
     height: 100vh;
-    font-size: 1.1rem;        /* Make text larger */
-    line-height: 1.8;         /* Improve readability */
-    font-weight: 500;         /* Slightly bolder */
-    color: #222;
-  }
-  
-  
-  .scatter-fixed {
-    flex: 1.5;
-    position: relative;
-  }
-  
-  .vis-panel {
-    position: relative;
-    flex: 1;
-    min-width: 400px;
-    padding: 2rem;
+    overflow-y: auto;
+    padding: 1.5rem;
     box-sizing: border-box;
+    background-color: #f7f9fb;
+    border-radius: 12px;
   }
   
+  /* RIGHT COLUMN: INSTRUCTIONS + CHART */
+  .scatter-right-panel {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: relative;
+  }
   
-
   
   #intro-line {
     transition: opacity 0.5s ease;
@@ -1095,7 +1089,7 @@ body {
   border: 1px solid #d0e4f1;
   border-left: 10px solid #6D9DC5;
   border-radius: 12px;
-  padding: 1.5rem 1.75rem;
+  padding: 0.5rem 1.2rem;
   font-family: system-ui, sans-serif;
   color: #333;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
@@ -1103,7 +1097,7 @@ body {
 
 
 .instructions h3 {
-  font-size: 1.25rem;
+  font-size: 1rem;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
@@ -1122,6 +1116,7 @@ body {
 .instructions ol li {
   margin-bottom: 0.75rem;
   line-height: 1.6;
+  font-size: 14px;
 }
 
 .instructions .icon {
@@ -1166,7 +1161,7 @@ body {
 #controls h3 {
   margin-top: 0.5rem;   /* Reduce top margin */
   margin-bottom: 0rem; /* Space between label and pills */
-  font-size: 18px;      /* Optional: adjust size */
+  font-size: 14px;      /* Optional: adjust size */
   font-weight: 600;     /* Optional: make it slightly bold */
   color: #222;          /* Optional: make it consistent with rest of UI */
 }
@@ -1210,13 +1205,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-#controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: center;
 }
 
 .control-block {
@@ -1376,13 +1364,6 @@ input[type="range"]::-moz-range-track {
   gap: 1rem;
   margin: 2rem;
   margin-left: 0;
-}
-
-.filter-card {
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
 .axis-box {
@@ -1644,9 +1625,23 @@ input[type="range"]::-moz-range-track {
 }
 
 .slider-label {
-  margin-right: 15px;      /* small gap between text and the slider */
-  font-weight: 600;       /* bold enough to notice */
-  font-size: 2rem;     /* slightly smaller than default h2/h3 */
-  color: #333;            /* dark gray so it’s legible */
-  white-space: nowrap;    /* keep “(move me!)” on one line */
+  margin-right: 15px; 
+  font-weight: 600;     
+  font-size: 2rem;     
+  color: #333;        
+  white-space: nowrap;   
+}
+
+#xInfo, #yInfo {
+  cursor: pointer;
+  margin-left: 0.3rem;
+  font-size: 1rem;
+  color: #6D9DC5;
+}
+
+.param-desc {
+  font-size: 0.85rem;
+  color: #444;
+  margin-top: 0.4rem;
+  max-width: 300px;
 }
