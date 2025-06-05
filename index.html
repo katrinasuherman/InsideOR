@@ -136,8 +136,21 @@
     </section>
 
     <div id="scrolly-transition">
+      <section class="conclusion-section scroll-section" id="start">
+        <div class="conclusion-box">
+          <p class="note">Finished exploring this case?</p>
+          <p class="note">Choose a <span class="highlight-blue">new patient</span>  or <span class="highlight-blue">dive deeper</span> into the data below.</p>
+      
+          <div class="button-row" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;">
+            <a href="#intro" class="btn primary">Explore Another Patient</a>
+            <a href="#start-analysis" class="btn secondary">Continue Analysis</a>
+          </div>
+        </div>
+      </section>
+      
+      
       <!-- CONCLUSION SLIDE 1 -->
-      <section class="conclusion-section">
+      <section class="conclusion-section", id="start-analysis">
         <div class="conclusion-box">
           <p><span class="highlighted">From one case to thousands.</span></p>
           <p><strong>You've just followed one patient's journey from surgery to discharge.</strong></p>
@@ -306,14 +319,14 @@
                 <div class="axis-control">
                   <label for="xQuantSelect">
                     <strong>X-axis:</strong>
-                    <span id="xInfo" title="View glossary">🛈</span>
+                    <span id="xInfo" title="View glossary">ℹ️</span>
                   </label>
                   <select id="xQuantSelect">
                     <option value="asa">ASA Score</option>
-                    <option value="intraop_crystalloid">Intraoperative Crystalloid</option>
-                    <option value="intraop_rocu">Intraoperative Rocuronium</option>
-                    <option value="intraop_uo">Intraoperative Urine Output</option>
-                    <option value="preop_alb">Preoperative Albumin</option>
+                    <option value="intraop_crystalloid">IV Crystalloid Volume (mL)</option>
+                    <option value="intraop_rocu">Rocuronium Dose (mg)</option>
+                    <option value="intraop_uo">Urine Output (mL)</option>
+                    <option value="preop_alb">Preoperative Albumin (g/dL)</option>
                   </select>
                   <p id="x-description" class="param-desc"></p>
                 </div>
@@ -322,11 +335,11 @@
                 <div class="axis-control">
                   <label for="ySelect">
                     <strong>Y-axis:</strong>
-                    <span id="yInfo" title="View glossary">🛈</span>
+                    <span id="yInfo" title="View glossary">ℹ️</span>
                   </label>
                   <select id="ySelect">
-                    <option value="surgery_time">Surgery Time</option>
-                    <option value="icu_days">ICU Days</option>
+                    <option value="surgery_time">Surgery Time (min)</option>
+                    <option value="icu_days">ICU Stay (Days)</option>
                   </select>
                   <p id="y-description" class="param-desc"></p>
                 </div>
@@ -342,10 +355,10 @@
         <section class="instructions">
           <h3>How to Use the Surgical Outcome Explorer</h3>
           <ol>
-            <li><strong>Filter by Operation Type:</strong> Click a pill to filter surgeries (e.g., Stomach, Vascular). Select <em>All</em> to reset.</li>
+            <li><strong>Filter by Operation Type:</strong> Click a pill to filter surgeries.</li>
             <li><strong>Set Patient Criteria:</strong> Use the <strong>Age</strong> and <strong>BMI</strong> sliders to narrow the patient group.</li>
             <li><strong>Choose Patient Sex:</strong> Toggle ♂️ / ♀️ buttons to include or exclude male/female patients.</li>
-            <li><strong>Choose What to Compare:</strong> Use the X-axis and Y-axis dropdowns to explore relationships (e.g., ASA vs. Surgery Time).</li>
+            <li><strong>Choose What to Compare:</strong> Use the X-axis and Y-axis dropdowns to explore relationships.</li>
             <li><strong>Interpret the Results:</strong> Watch how patterns shift based on your filters and check the summary stats below.</li>
           </ol>
         </section>
@@ -405,5 +418,15 @@
       </div>
     </section>
   </main>
+
+  <!-- Glossary Modal -->
+<div id="glossaryModal" class="modal hidden">
+  <div class="modal-content">
+    <span id="closeModal">&times;</span>
+    <h2>📘 Variable Glossary</h2>
+    <pre id="glossaryText" style="white-space: pre-wrap;"></pre>
+  </div>
+</div>
+
 </body>
 </html>

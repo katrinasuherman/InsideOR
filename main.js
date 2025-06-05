@@ -16,6 +16,16 @@ const orImage = document.getElementById("or-image");
 const tooltip = document.getElementById("tooltip");
 const orContainer = document.getElementById("or-container");
 
+const axisLabelMap = {
+  asa: "ASA Score",
+  intraop_crystalloid: "IV Crystalloid Volume (mL)",
+  intraop_rocu: "Rocuronium Dose (mg)",
+  intraop_uo: "Urine Output (mL)",
+  preop_alb: "Preoperative Albumin (g/dL)",
+  surgery_time: "Surgery Time (min)",
+  icu_days: "ICU Stay (Days)"
+};
+
 // ----------------------------------------------------------
 // 1) DOMContentLoaded: load CSV + draw initial scatter, then load 5 cases
 // ----------------------------------------------------------
@@ -77,26 +87,29 @@ function updateChart() {
     .attr("class", "chart-group")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-  let filtered = data.filter(d => {
-    const yVal = +d[yVar];
-    if (isNaN(yVal) || d[yVar] === "" || d[xVar] === "") return false;
-    if (yVar === "icu_days" && yVal > 50) return false;
-  
-    const minAge = parseInt(ageMinInput?.value || 0);
-    const maxAge = parseInt(ageMaxInput?.value || 100);
-    if (d.age < minAge || d.age > maxAge) return false;
-    
-  
-    const minBmi = parseFloat(document.getElementById('bmiMin').value || 10);
-    const maxBmi = parseFloat(document.getElementById('bmiMax').value || 50);
-    if (d.bmi < minBmi || d.bmi > maxBmi) return false;
+let filtered = data.filter(d => {
+  const yVal = +d[yVar];
+  if (isNaN(yVal) || d[yVar] === "" || d[xVar] === "") return false;
+  if (yVar === "icu_days" && yVal > 50) return false;
 
-    if (showEmergencyOnly && d.emop !== 1 && d.emop !== "1") return false;
-    if ((d.sex === "M" && !showMale) || (d.sex === "F" && !showFemale)) return false;
-    if (selectedOptype && selectedOptype !== "All" && d.optype !== selectedOptype) return false;
-  
-    return true;
-  });
+  const minAge = parseInt(ageMinInput?.value || 0);
+  const maxAge = parseInt(ageMaxInput?.value || 100);
+  if (d.age < minAge || d.age > maxAge) return false;
+
+  const minBmi = parseFloat(document.getElementById('bmiMin').value || 10);
+  const maxBmi = parseFloat(document.getElementById('bmiMax').value || 50);
+  if (d.bmi < minBmi || d.bmi > maxBmi) return false;
+
+  // ✅ Only include patients with albumin > 1.5
+  if (d.preop_alb <= 1.5) return false;
+
+  if (showEmergencyOnly && d.emop !== 1 && d.emop !== "1") return false;
+  if ((d.sex === "M" && !showMale) || (d.sex === "F" && !showFemale)) return false;
+  if (selectedOptype && selectedOptype !== "All" && d.optype !== selectedOptype) return false;
+
+  return true;
+});
+
     
 
   const avgY = d3.mean(filtered, d => d[yVar]);
@@ -136,7 +149,7 @@ function updateChart() {
     .attr("y", innerHeight + 45)
     .attr("text-anchor", "middle")
     .attr("font-size", "14px")
-    .text(xVar.replaceAll('_', ' '));
+    .text(axisLabelMap[xVar] || xVar.replaceAll('_', ' '));
 
   chart.selectAll(".y-label")
     .data([null])
@@ -144,10 +157,10 @@ function updateChart() {
     .attr("class", "y-label")
     .attr("transform", "rotate(-90)")
     .attr("x", -innerHeight / 2)
-    .attr("y", -45)
+    .attr("y", -35)
     .attr("text-anchor", "middle")
     .attr("font-size", "14px")
-    .text(yVar.replaceAll('_', ' '));
+    .text(axisLabelMap[yVar] || yVar.replaceAll('_', ' '));
 
   const circles = chart.selectAll("circle")
     .data(filtered, d => d.caseid); // caseid must be unique and stable
@@ -1218,19 +1231,40 @@ window.addEventListener("scroll", () => {
 // ----------------------------------------------------------
 // 10) BMI SLIDER Handling
 // ----------------------------------------------------------
-d3.selectAll('#bmiMin, #bmiMax').on('input', () => {
-  const min = +d3.select('#bmiMin').property('value');
-  const max = +d3.select('#bmiMax').property('value');
-  d3.select('#bmiValue').text(`${min} - ${max}`);
+const bmiMinInput = document.getElementById('bmiMin');
+const bmiMaxInput = document.getElementById('bmiMax');
+const bmiValueSpan = document.getElementById('bmiValue');
+
+function updateBmiDisplay(event) {
+  let min = parseFloat(bmiMinInput.value);
+  let max = parseFloat(bmiMaxInput.value);
+
+  // Clamp to prevent min > max
+  if (min > max) {
+    if (event.target === bmiMinInput) {
+      bmiMaxInput.value = min;
+      max = min;
+    } else {
+      bmiMinInput.value = max;
+      min = max;
+    }
+  }
+
+  bmiValueSpan.textContent = `${min} - ${max}`;
   updateChart();
-});
+}
+
+bmiMinInput.addEventListener('input', updateBmiDisplay);
+bmiMaxInput.addEventListener('input', updateBmiDisplay);
+
+
 
 const glossary = {
-  asa: "A classification from 1 (healthy) to 5 (critical) to describe physical status before surgery.",
+  asa: "A classification from 1 (healthy) to 6 (brain-dead organ donor) to describe physical status before surgery.",
   intraop_crystalloid: "Volume of IV fluids like saline given during surgery.",
   intraop_rocu: "Amount of rocuronium, a muscle relaxant used during anesthesia.",
   intraop_uo: "Total urine output during surgery — indicates kidney function.",
-  preop_alb: "Albumin level before surgery — reflects nutritional and health status.",
+  preop_alb: "Albumin level before surgery — a key protein made by the liver that reflects nutritional status, inflammation, and overall health.",
   surgery_time: "Total duration of the surgical procedure in minutes.",
   icu_days: "Number of days the patient stayed in the Intensive Care Unit."
 };
@@ -1251,14 +1285,28 @@ document.getElementById('ySelect').addEventListener('change', () => {
 document.getElementById('xInfo').addEventListener('click', showGlossary);
 document.getElementById('yInfo').addEventListener('click', showGlossary);
 
+// JS updates
 function showGlossary() {
-  let text = '📘 Variable Glossary:\n\n';
+  const modal = document.getElementById('glossaryModal');
+  const glossaryText = document.getElementById('glossaryText');
+
+  let text = '';
   for (const [key, desc] of Object.entries(glossary)) {
-    text += `• ${key.replaceAll('_', ' ')}: ${desc}\n\n`;
+    const readable = axisLabelMap[key] || key.replaceAll('_', ' ');
+    text += `• ${readable}: ${desc}\n\n`;
   }
-  alert(text);
+
+  glossaryText.textContent = text;
+  modal.classList.remove('hidden');
 }
+
+document.getElementById('closeModal').addEventListener('click', () => {
+  document.getElementById('glossaryModal').classList.add('hidden');
+});
+
+
 
 // Trigger initial description on load
 updateAxisDescription('xQuantSelect', 'x-description');
 updateAxisDescription('ySelect', 'y-description');
+
