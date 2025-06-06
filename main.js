@@ -217,6 +217,14 @@ async function loadCaseData() {
             ? "images/table-female.png"
             : "images/table-male.png";
         }
+
+      const postOpGif = document.getElementById("postOpGif");
+      if (postOpGif) {
+        postOpGif.src = sex === "f"
+          ? "images/recovered-female-new.gif"
+          : "images/recovered-men-new.gif";
+      }
+
       }
 
       // 3b) Draw the live EKG + intervention charts:
@@ -305,6 +313,7 @@ let playSpeed = 100;
 const margin_ekg = { top: 40, right: 20, bottom: 40, left: 60 };
 const RIGHT_PADDING = 30;
 const totalWidth = 1150;
+
 const totalHeight = 400;
 const chartWidth = totalWidth - margin_ekg.left - margin_ekg.right;
 const chartHeight = totalHeight - margin_ekg.top - margin_ekg.bottom;
@@ -735,20 +744,19 @@ document.addEventListener("DOMContentLoaded", () => {
       const admDays = (selectedCase.adm / (60 * 60 * 24)).toFixed(1);
       const disDays = (selectedCase.dis / (60 * 60 * 24)).toFixed(1);
 
-      const outcomeText = selectedCase.death_inhosp
-        ? "❌ Patient did not survive the hospital stay."
-        : "✅ Patient discharged in stable condition.";
+      // const outcomeText = selectedCase.death_inhosp
+      //   ? "❌ Patient did not survive the hospital stay."
+      //   : "✅ Patient discharged in stable condition.";
 
       const dischargeText = `
         <h3 class="summary-title">📋 Discharge Summary</h3>
         <div class="summary-row"><strong>🕐 Admission:</strong> ${admDays} days from surgery start</div>
         <div class="summary-row"><strong>📤 Discharge:</strong> ${disDays} days from surgery start</div>
-        <div class="summary-row"><strong>🏥 Post-op Stay:</strong> ${selectedCase.los_postop ?? "N/A"} days</div>
         <div class="summary-row"><strong>🛌 ICU Stay:</strong> ${selectedCase.icu_days ?? "N/A"} days</div>
       `;
 
-      const outcomeDiv = document.getElementById("outcome-text");
-      outcomeDiv.textContent = outcomeText;
+      // const outcomeDiv = document.getElementById("outcome-text");
+      // outcomeDiv.textContent = outcomeText;
 
       summaryBox.innerHTML = dischargeText;
     });
@@ -1084,17 +1092,21 @@ function drawHeatmap() {
     .data(cells)
     .enter()
     .append('rect')
+      .attr('class', 'heatmap-cell')  // ⬅️ Add this line
       .attr('x', d => d.j * cellSize)
       .attr('y', d => d.i * cellSize)
       .attr('width', cellSize)
       .attr('height', cellSize)
       .style('fill', d => colorScale(d.value))
-      .style('stroke', '#eee')
+      .attr('stroke', '#eee')
 
       // ← THIS IS THE NEW BIT: on click, load these two params into the scatter dropdowns
       .on('click', function(event, d) {
         // d.i is the row index → param name at allParamKeys[i]
         // d.j is the column index → param name at allParamKeys[j]
+        d3.selectAll('.heatmap-cell').classed('selected', false);
+        d3.select(this).classed('selected', true);
+
         const xName = allParamKeys[d.j];
         const yName = allParamKeys[d.i];
 

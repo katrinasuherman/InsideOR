@@ -11,6 +11,7 @@
   <div id="scroll-indicator">
     <div id="scroll-bar"></div>
   </div>
+
   <main class="scroll-container">
     <!-- HERO SECTION -->
     <section class="hero-section scroll-section">
@@ -42,6 +43,10 @@
           How long will it take? Will I recover?<br>
           How does my <span class="highlight-blue">experience</span> compare to others?
         </p>
+        <p class="gif-instruction">Scroll to continue</p><br>
+        <div class="arrow-gif">
+          <img src="images/arrow.gif" alt="arrow" />
+        </div>
       </div>
     </section>
 
@@ -65,6 +70,13 @@
     <section class="case-explorer scroll-section" id="case-explorer">
       <div class="layout-wrapper">
         <div id="case-and-body">
+          <div class="instruction-text">
+            <h3>
+              Meet our patient, prepped and ready for surgery. <br />
+              As the operation unfolds, hover over the scene to uncover hidden details about their journey.
+            </h3>
+          </div>
+          
           <div id="case-section">
             <div id="ekg-monitor">
               <img id="ekg-monitor" src="images/ekg.png" alt="ekg" />
@@ -81,12 +93,15 @@
               Surgical Information here.
             </div>
           </div>
+          </div>
         </div>
       </div>
     </section>
+    
+    
 
     <!-- VITAL CHART + INTERVENTION SECTION -->
-    <section class="vitals-section scroll-section" id="vitals-section">
+    <section class="vitals-section" id="vitals-section">
       <div class="post-op" id="post-op-section">
         <div class="instruction-wrapper">
           <h2>Let's monitor the patient's vitals and interventions LIVE inside the OR  </h2>
@@ -120,8 +135,12 @@
     <section class="post-op-section" id="post-op-section">
       <div class="post-op" id="post-op-section">
         <div class="instruction-wrapper">
-          <h2>Post-Operative Outcome</h2>
-          <p class="gif-instruction">Click the patient to reveal discharge summary</p>
+          <div class="instruction-text">
+            <h3>
+              The surgery is complete! Our patient is now in recovery.
+              <p class="gif-instruction">Click on the patient to uncover how their healing journey unfolded.</p>
+            </h3>
+          </div>
         </div>
 
         <div class="post-op-container">
@@ -129,8 +148,10 @@
             <img src="images/recovered-female-new.gif" id="postOpGif" alt="Patient in Post-Op" class="clickable-gif" />
             <div id="outcome-text" class="outcome-text"></div>
           </div>
-
           <div id="dischargeSummary" class="summary-box hidden"></div>
+        </div>
+        <div class="arrow-gif">
+          <img src="images/arrow.gif" alt="arrow" />
         </div>
       </div>
     </section>
@@ -264,6 +285,7 @@
       </div>
     </section>
 
+    <!-- SURGICAL OUTCOME EXPLORER -->
     <section id="patientdata-section" class="scatter-section">
       <!-- LEFT COLUMN: FILTERS -->
       <div class="filter-panel">

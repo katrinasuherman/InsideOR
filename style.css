@@ -3,19 +3,36 @@
   --teal: #6D9DC5;
 }
 
+/* html {
+  scroll-behavior: smooth;
+} */
+
 html, body {
-  height: auto;
-  overflow-y: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  height: 100%;
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
+  font-family: system-ui, sans-serif;
     margin: 6rem;
-    background-color: var(--blue-white);
+    background: #fdfdfd;
     color: #333;
     line-height: 1.6;
   }
   
+.hero-section,
+.fullscreen-section,
+.case-explorer,
+.vitals-section,
+.post-op-section,
+#patientdata-section,
+.conclusion-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-height: 100vh;
+  }
+
   h1 {
     font-size: 1.8rem;
     margin-bottom: 0.5rem;
@@ -62,7 +79,20 @@ body {
     font-weight: bold;
     color: #444;
   }
+
+  .arrow-gif {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto auto;
+    max-width: 30px;
+  }
   
+  .arrow-gif img {
+    width: 100%;       /* scales with the container */
+    height: auto;
+  }
+    
   /* Chart Styles */
   svg {
     background: #fff;
@@ -193,7 +223,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 5rem 3rem;
+  /* padding: 5rem 3rem; */
   background: #ffffff;
   min-height: 100vh;
   box-sizing: border-box;
@@ -251,7 +281,7 @@ body {
 }
 
 .btn.outline {
-  border: 2px solid teal;
+  border: 2px solid;
   color: var(--teal);
 }
 
@@ -521,11 +551,19 @@ body {
 
 /*SURGERY INFO*/
 
-/* #case-section {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-} */
+.instruction-text {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2c3e50;
+  line-height: 1.6;
+  margin: 0 auto 2rem auto;
+  max-width: 1000px;
+  padding: 0 1rem;
+}
+
+
+
 
 #case-section {
   display: flex;
@@ -787,7 +825,7 @@ body {
     gap: 2rem;              
 }
   
-#ekg-border {
+ #ekg-border {
     transform: scale(0.85); 
     display: flex;
     flex-direction: row;
@@ -801,17 +839,18 @@ body {
 #charts-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 30px; /* spacing between upper controls, vitals, intervention */
+    gap: 30px;
     margin-top: 0px; 
 }
   
 #upper-controls {
   display: flex;
-  justify-content: flex-start; /* push everything to the right */
-  align-items: center;       /* vertically center label + slider */
-  margin-bottom: 1rem;       /* optional spacing under the bar */
+  justify-content: flex-start; 
+  align-items: center; 
+  margin-bottom: 1rem;
   margin-top: 1rem; 
-}
+} 
+
 
 #case-selector {
   text-align: center;
@@ -922,11 +961,29 @@ body {
   
 
   /* POST-OP */
+
+
+.instruction-wrapper {
+  text-align: center;
+  margin-top: 4rem; /* ⬅️ adjust this to control vertical spacing */
+  margin-bottom: 2rem;
+}
+
+
 .post-op {
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-op-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
 }
   
   .post-op h2 {
@@ -964,6 +1021,7 @@ body {
 .clickable-gif:hover {
   transform: scale(1.03);
 }
+
 
 .gif-instruction {
   text-align: center;
@@ -1273,11 +1331,26 @@ body {
 
 
 .heatmap-label {
-  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
   font-size: 12px;     
   font-weight: 500;
   fill: #222;
 }
+
+.heatmap-cell {
+  transition: stroke 0.2s ease, stroke-width 0.2s ease;
+  cursor: pointer;
+}
+
+.heatmap-cell:hover {
+  stroke: #444;              
+  stroke-width: 3px;
+}
+
+.heatmap-cell.selected {
+  stroke: #050809;            
+  stroke-width: 4px;
+}
+
 
 .conclusion-section {
   min-height: 100vh;
@@ -1407,11 +1480,12 @@ input[type="range"]::-moz-range-track {
   z-index: 1000;
 }
 
+
 #scroll-bar {
   height: 100%;
   width: 200%;
   height: 1.4rem;
-  background: linear-gradient(to right, rgb(42, 63, 119), #5a9ccba6); /* blue theme gradient */
+  background: linear-gradient(to right, rgb(42, 63, 119), #5a9ccba6); 
   transition: width 0.2s ease-out;
   border-radius: 0 8px 8px 0;
   box-shadow: 0 0 5px rgba(59, 130, 246, 0.4);
